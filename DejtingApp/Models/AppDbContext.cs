@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,7 @@ namespace DejtingApp.Models
     {
         public DbSet<Person> People { get; set; }
 
-        public AppDbContext() : base("AppDb") { }
+        public AppDbContext() : base(ConfigurationManager.ConnectionStrings["AppDbContext"].ConnectionString) { }
     }
 
 }

@@ -9,9 +9,9 @@ namespace DejtingApp.Models
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<Person> people { get; set; }
+        public DbSet<Person> People { get; set; }
 
-        public AppDbContext() : base("appdb") { }
+        public AppDbContext() : base("AppDb") { }
     }
 
 }

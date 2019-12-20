@@ -16,7 +16,7 @@ namespace DejtingApp.Controllers
             var ctx = new AppDbContext();
             var viewModel = new PersonIndexViewModel
             {
-                People = ctx.people.ToList()
+                People = ctx.People.ToList()
             };
             return View(viewModel);
         }
@@ -26,7 +26,7 @@ namespace DejtingApp.Controllers
         public ActionResult RegisterUser(Person model)
         {
             var ctx = new AppDbContext();
-            ctx.people.Add(model);
+            ctx.People.Add(model);
             ctx.SaveChanges();
 
             return RedirectToAction("Index");

@@ -14,19 +14,19 @@ namespace DejtingApp.Controllers
         public ActionResult Index()
         {
             var ctx = new AppDbContext();
-            var viewModel = new PersonIndexViewModel
+            var viewModel = new ProfileIndexViewModel
             {
-                People = ctx.People.ToList()
+                Profiles = ctx.Profiles.ToList()
             };
             return View(viewModel);
         }
 
 
         [HttpPost]
-        public ActionResult RegisterUser(Person model)
+        public ActionResult RegisterUser(Profile model)
         {
             var ctx = new AppDbContext();
-            ctx.People.Add(model);
+            ctx.Profiles.Add(model);
             ctx.SaveChanges();
 
             return RedirectToAction("Index");

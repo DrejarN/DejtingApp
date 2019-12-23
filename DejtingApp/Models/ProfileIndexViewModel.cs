@@ -5,8 +5,8 @@ using System.Web;
 
 namespace DejtingApp.Models
 {
-    public class PersonIndexViewModel
+    public class ProfileIndexViewModel
     {
-        public List<Person> People { get; set; }
+        public List<Profile> Profiles { get; set; }
     }
 }

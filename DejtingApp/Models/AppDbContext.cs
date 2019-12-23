@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
@@ -8,9 +9,13 @@ using System.Web.Mvc;
 
 namespace DejtingApp.Models
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Person> People { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
+        public DbSet<ProfilePage> ProfilePages { get; set; }
+        public DbSet<Interest> Interests { get; set; }
+
+
 
         public AppDbContext() : base(ConfigurationManager.ConnectionStrings["AppDbContext"].ConnectionString) { }
     }

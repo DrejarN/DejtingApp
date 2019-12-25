@@ -208,11 +208,27 @@
     <Compile Include="Migrations\201912232021490_andring2.Designer.cs">
       <DependentUpon>201912232021490_andring2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912251028413_MessageTet.cs" />
+    <Compile Include="Migrations\201912251028413_MessageTet.Designer.cs">
+      <DependentUpon>201912251028413_MessageTet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912251109530_FriendTestDb2.cs" />
+    <Compile Include="Migrations\201912251109530_FriendTestDb2.Designer.cs">
+      <DependentUpon>201912251109530_FriendTestDb2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912251133112_FriendReqTestDb.cs" />
+    <Compile Include="Migrations\201912251133112_FriendReqTestDb.Designer.cs">
+      <DependentUpon>201912251133112_FriendReqTestDb.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Friend.cs" />
+    <Compile Include="Models\FriendRequest.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Interest.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\AppDbContext.cs" />
     <Compile Include="Models\ProfileIndexViewModel.cs" />
@@ -311,6 +327,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912232021490_andring2.resx">
       <DependentUpon>201912232021490_andring2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912251028413_MessageTet.resx">
+      <DependentUpon>201912251028413_MessageTet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912251109530_FriendTestDb2.resx">
+      <DependentUpon>201912251109530_FriendTestDb2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912251133112_FriendReqTestDb.resx">
+      <DependentUpon>201912251133112_FriendReqTestDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -14,6 +14,7 @@ namespace DejtingApp.Models
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<ProfilePage> ProfilePages { get; set; }
         public DbSet<Interest> Interests { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
 
 

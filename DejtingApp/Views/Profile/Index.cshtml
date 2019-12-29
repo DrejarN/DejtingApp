@@ -1,11 +1,72 @@
 ﻿@using DejtingApp.Models
+@model ProfileIndexViewModel
+@model ProfilePageIndexViewModel
 @{
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <h2>My Profile</h2>
 
+<div class="container">
+    <div class="row" style="background-color: blue">
+        <div class="col-md-4">
+            <img />
+        </div>
+        <div class="col-md-8">
+            <div class="list-group">
+                    <h4 class="list-group-item-heading">List group item heading</h4> @* Foreach loop: Förnamn + Efternamn + ": "*@
+                    <p class="list-group-item-text">...</p> @*Foreach loop som visar meddelande*@
+            </div>
+            @*En lista med meddelanden som folk skrivit till personen*@
+        </div>
+    </div>
+    <div class="row" style="background-color: yellow">
+        <div class="col-md-4">
+            @*Namn, ålder*@
+        </div>
+        <div class="col-md-8">
+            @*Message input field*@
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            @*Whitespace*@
+        </div>
+        <div class="col-md-8">
+            @*En submit knapp för att skriva på wallen *@
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <h4>Description</h4>
+            <p>@ var result =
+            foreach (var pp in Model.ProfilePages) { 
+            
+            }</p>
+            @*Description, interests *@
+        </div>
+        <div class="col-md-8">
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<table>
+    @foreach (var profile in Model.Profiles)
+    {
+        <tr>
+            <td>@profile.ProfileID</td>
+            <td>@profile.Förnamn</td>
+        </tr>
+    }
+</table>
 
 <hr />
 

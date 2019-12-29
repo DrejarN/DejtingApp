@@ -1,8 +1,10 @@
-﻿using System;
+﻿using DejtingApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace DejtingApp.Controllers
 {
@@ -12,13 +14,34 @@ namespace DejtingApp.Controllers
         // Ska hantera profil, intressen
         public ActionResult Index()
         {
-            return View();
-        }
-        //public ActionResult Profile()
-        //{
-        //    ViewBag.Message = "Your profile page";
+            var ctx = new AppDbContext();
+            var viewModel = new ProfileIndexViewModel
+            {
+                Profiles = ctx.Profiles.ToList()
+            };
 
-        //    return View();
+            return View(viewModel);
+        }
+
+        public ActionResult getDescription()
+        {
+            var ctx = new AppDbContext();
+            var viewModel = new ProfilePageIndexViewModel
+            {
+                ProfilePages = ctx.ProfilePages.ToList()
+            };
+
+            return View(viewModel); 
+        }
+
+        //public ActionResult getProfile()
+        //{
+        //    var ctx = new AppDbContext();
+        //    var viewModel = new ProfileIndexViewModel
+        //    {
+        //        Profiles = ctx.Profiles.ToList()
+        //    };
+        //    return View(viewModel);
         //}
     }
 }

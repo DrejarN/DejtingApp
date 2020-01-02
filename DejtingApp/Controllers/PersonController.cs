@@ -14,7 +14,7 @@ namespace DejtingApp.Controllers
         public ActionResult Index()
         {
             var ctx = new AppDbContext();
-            var viewModel = new ProfileIndexViewModel
+            var viewModel = new ProfilePageViewModel
             {
                 Profiles = ctx.Profiles.ToList()
             };

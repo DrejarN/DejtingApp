@@ -34,7 +34,7 @@ namespace DejtingApp.Models
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Profile>()
-                .HasRequired(c => c.ApplicationUser)
+                .HasRequired(c => c.AppUser)
                 .WithMany(t => t.Profiles)
                 .Map(m => m.MapKey("UserId"));
         }

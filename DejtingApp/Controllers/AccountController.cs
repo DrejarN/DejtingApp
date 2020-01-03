@@ -134,6 +134,40 @@ namespace DejtingApp.Controllers
             }
         }
 
+        
+
+        //
+        // GET: Account/RegisterProfile
+        [AllowAnonymous]
+        public ActionResult RegisterProfile()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/RegisterProfile
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+
+        public ActionResult RegisterProfile(RegisterProfileViewModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                var ctx = new AppDbContext();
+                var currentUser = User.Identity.GetUserId();
+                var profile = new Profile { Active = true, Förnamn = model.Förnamn, Efternamn = model.Efternamn, Födelseår = model.Födelseår, Description = model.Description, ApplicationUser = currentUser };
+                ctx.Profiles.Add(profile);
+                ctx.SaveChanges();
+
+                return RedirectToAction("Index", "Home"); //Ange vart vi hamnar efter vi är klara.
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
         //
         // GET: /Account/Register
         [AllowAnonymous]
@@ -156,14 +190,14 @@ namespace DejtingApp.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("RegisterProfile", "Account"); // "Index", "Home"); //Ändra denna till redirect ro regProfile?
                 }
                 AddErrors(result);
             }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DejtingApp.Models
@@ -108,5 +109,24 @@ namespace DejtingApp.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+    }
+
+    public class RegisterProfileViewModel
+    {
+        [Required]
+        [Display(Name = "Förnamn")]
+        public string Förnamn { get; set; }
+
+        [Required]
+        [Display(Name = "Efternamn")]
+        public string Efternamn { get; set; }
+
+        [Required]
+        [Display(Name = "Födelsedatum")]
+        public DateTime Födelseår { get; set; }
+
+        [Required]
+        [Display(Name = "Beskriv dig själv")]
+        public string Description { get; set; }
     }
 }

@@ -17,7 +17,10 @@ namespace DejtingApp.Models
         public bool Active { get; set; }
         public string Description { get; set; }
         public string ImagePath { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
+
+        public string ApplicationUser { get; set; }
+        [ForeignKey("ApplicationUser")]
+        public virtual ApplicationUser AppUser { get; set; }
 
         //InverseProperty möjliggör many-to-many förhållande i DB från friends/friendReqs
         [InverseProperty("Sender")]

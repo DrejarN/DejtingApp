@@ -7,6 +7,7 @@ namespace DejtingApp.Migrations
     {
         public override void Up()
         {
+
             CreateTable(
                 "dbo.Interests",
                 c => new

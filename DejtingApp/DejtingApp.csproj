@@ -193,6 +193,22 @@
     <Compile Include="Migrations\202001031316428_Interest.Designer.cs">
       <DependentUpon>202001031316428_Interest.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001031812233_Final.cs" />
+    <Compile Include="Migrations\202001031812233_Final.Designer.cs">
+      <DependentUpon>202001031812233_Final.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001032009005_1.cs" />
+    <Compile Include="Migrations\202001032009005_1.Designer.cs">
+      <DependentUpon>202001032009005_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001032010215_2.cs" />
+    <Compile Include="Migrations\202001032010215_2.Designer.cs">
+      <DependentUpon>202001032010215_2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001032015082_3.cs" />
+    <Compile Include="Migrations\202001032015082_3.Designer.cs">
+      <DependentUpon>202001032015082_3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -319,6 +335,7 @@
     <Content Include="Views\Person\RegisterUserForm.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\CreateMessage.cshtml" />
+    <Content Include="Views\Account\RegisterProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -340,6 +357,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202001031316428_Interest.resx">
       <DependentUpon>202001031316428_Interest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001031812233_Final.resx">
+      <DependentUpon>202001031812233_Final.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001032009005_1.resx">
+      <DependentUpon>202001032009005_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001032010215_2.resx">
+      <DependentUpon>202001032010215_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001032015082_3.resx">
+      <DependentUpon>202001032015082_3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

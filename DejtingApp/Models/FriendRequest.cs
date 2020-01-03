@@ -12,7 +12,6 @@ namespace DejtingApp.Models
         [Key]
         public int FriendRequestId { get; set; }
 
-
         //Skapar foreign key till Profile.ProfileId
         [ForeignKey("Sender")]
         public int? SenderId { get; set; }

@@ -18,15 +18,12 @@
         </div>
         <div class="col-md-8">
             <div class="list-group">
-                <h4 class="list-group-item-heading">@Model.profile.Förnamn skrev:</h4>
-                <h4 class="list-group-item-heading">@Model.profilePage.Description skrev:</h4>
-
-                @foreach (var pp in Model.Messages)
+                @foreach (var name in Model.profiles)
                 {
-
-                    <h4 class="list-group-item-heading">@pp.SenderId skrev @pp.MessageText</h4>
+                    <h4 class="list-group-item-heading">@name.Förnamn skrev:</h4>
+                } @foreach (var message in Model.Messages) {
+                    <p class="list-group-item-text">@message.MessageText</p>
                 }
-                <p class="list-group-item-text">...</p>
 
 
                 @*

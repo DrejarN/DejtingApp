@@ -23,6 +23,7 @@ namespace DejtingApp.Models
         public Profile Reciever { get; set; }
 
         //Skapar foreign key till Category.CategoryId one-to-one
+       
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public virtual Category Categories { get; set; }

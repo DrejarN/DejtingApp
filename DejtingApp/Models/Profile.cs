@@ -10,16 +10,14 @@ namespace DejtingApp.Models
     public class Profile
     {
         [Key]
-        
-        public int ProfileID { get; set; }
+        public int ProfileId { get; set; }
         public string Förnamn { get; set; }
         public string Efternamn { get; set; }
         public DateTime Födelseår { get; set; }
         public bool Active { get; set; }
-
-        //[ForeignKey("ProfileId")]
+        public string Description { get; set; }
+        public string ImagePath { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
-
 
         //InverseProperty möjliggör many-to-many förhållande i DB från friends/friendReqs
         [InverseProperty("Sender")]
@@ -34,5 +32,10 @@ namespace DejtingApp.Models
         [InverseProperty("Reciever")]
         public ICollection<FriendRequest> Recievers2 { get; set; } //this name ok?
 
+        [InverseProperty("Sender")]
+        public ICollection<Message> Senders3 { get; set; }
+
+        [InverseProperty("Reciever")]
+        public ICollection<Message> Recievers3 { get; set; }
     }
 }

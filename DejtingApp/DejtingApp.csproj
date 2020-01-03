@@ -189,37 +189,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201912231858056_AppDbContect.cs" />
-    <Compile Include="Migrations\201912231858056_AppDbContect.Designer.cs">
-      <DependentUpon>201912231858056_AppDbContect.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912231937330_litenandring.cs" />
-    <Compile Include="Migrations\201912231937330_litenandring.Designer.cs">
-      <DependentUpon>201912231937330_litenandring.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912231939080_fkUserProfil.cs" />
-    <Compile Include="Migrations\201912231939080_fkUserProfil.Designer.cs">
-      <DependentUpon>201912231939080_fkUserProfil.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912232002049_asd.cs" />
-    <Compile Include="Migrations\201912232002049_asd.Designer.cs">
-      <DependentUpon>201912232002049_asd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912232021490_andring2.cs" />
-    <Compile Include="Migrations\201912232021490_andring2.Designer.cs">
-      <DependentUpon>201912232021490_andring2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912251028413_MessageTet.cs" />
-    <Compile Include="Migrations\201912251028413_MessageTet.Designer.cs">
-      <DependentUpon>201912251028413_MessageTet.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912251109530_FriendTestDb2.cs" />
-    <Compile Include="Migrations\201912251109530_FriendTestDb2.Designer.cs">
-      <DependentUpon>201912251109530_FriendTestDb2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912251133112_FriendReqTestDb.cs" />
-    <Compile Include="Migrations\201912251133112_FriendReqTestDb.Designer.cs">
-      <DependentUpon>201912251133112_FriendReqTestDb.cs</DependentUpon>
+    <Compile Include="Migrations\202001031124408_InitialCreat.cs" />
+    <Compile Include="Migrations\202001031124408_InitialCreat.Designer.cs">
+      <DependentUpon>202001031124408_InitialCreat.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -234,7 +206,6 @@
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\AppDbContext.cs" />
     <Compile Include="Models\ProfilePageViewModels.cs" />
-    <Compile Include="Models\ProfilePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -367,29 +338,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912231858056_AppDbContect.resx">
-      <DependentUpon>201912231858056_AppDbContect.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912231937330_litenandring.resx">
-      <DependentUpon>201912231937330_litenandring.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912231939080_fkUserProfil.resx">
-      <DependentUpon>201912231939080_fkUserProfil.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912232002049_asd.resx">
-      <DependentUpon>201912232002049_asd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912232021490_andring2.resx">
-      <DependentUpon>201912232021490_andring2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912251028413_MessageTet.resx">
-      <DependentUpon>201912251028413_MessageTet.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912251109530_FriendTestDb2.resx">
-      <DependentUpon>201912251109530_FriendTestDb2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912251133112_FriendReqTestDb.resx">
-      <DependentUpon>201912251133112_FriendReqTestDb.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001031124408_InitialCreat.resx">
+      <DependentUpon>202001031124408_InitialCreat.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

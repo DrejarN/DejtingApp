@@ -11,7 +11,6 @@ namespace DejtingApp.Controllers
     
     public class ProfileController : Controller
     {
-        AppDbContext db = new AppDbContext();
         // GET: Profile
         // Ska hantera profil, intressen
         public ActionResult Index(int? profileId)
@@ -40,8 +39,8 @@ namespace DejtingApp.Controllers
 
             var vM = new ProfilePageIndexViewModel
             {
-                profilePage = ctx.ProfilePages.ToList().Find(x => x.ProfilePageId == profileId),
-                profile = ctx.Profiles.ToList().Find(x => x.ProfileID == profileId),
+                //profilePages = ctx.ProfilePages.ToList().FindAll(x => x.ProfilePageId == profileId),
+                profiles = ctx.Profiles.ToList().FindAll(x => x.ProfileId == profileId),
                 Messages = ctx.Messages.ToList().FindAll(x => x.RecieverId == profileId)
             };
 
@@ -66,7 +65,6 @@ namespace DejtingApp.Controllers
             var ctx = new AppDbContext();
             var vM = new ProfilePageViewModel
             {
-                ProfilePages = ctx.ProfilePages.ToList(),
                 Profiles = ctx.Profiles.ToList()
             };
 

@@ -11,7 +11,7 @@ namespace DejtingApp.Models
 
         public List<Profile> Profiles { get; set; }
 
-        public List<ProfilePage> ProfilePages { get; set; }
+        //public List<ProfilePage> ProfilePages { get; set; }
 
         public List<Message> Messages { get; set; }
 
@@ -20,8 +20,8 @@ namespace DejtingApp.Models
 
     public class ProfilePageIndexViewModel
     {
-        public Profile profile { get; set; }
-        public ProfilePage profilePage { get; set; }
+        public List<Profile> profiles { get; set; }
+        //public List<ProfilePage> profilePages { get; set; }
         public List<Message> Messages { get; set; }
 
     }

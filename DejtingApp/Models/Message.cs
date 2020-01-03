@@ -16,11 +16,11 @@ namespace DejtingApp.Models
 
         [ForeignKey("Sender")]
         public int? SenderId { get; set; }
-        public ProfilePage Sender { get; set; }
+        public Profile Sender { get; set; }
 
         [ForeignKey("Reciever")]
         public int? RecieverId { get; set; }
-        public ProfilePage Reciever { get; set; }
+        public Profile Reciever { get; set; }
 
     }
 }

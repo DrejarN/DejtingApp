@@ -7,13 +7,13 @@ namespace DejtingApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class FriendReqTestDb : IMigrationMetadata
+    public sealed partial class Img : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(FriendReqTestDb));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Img));
         
         string IMigrationMetadata.Id
         {
-            get { return "201912251133112_FriendReqTestDb"; }
+            get { return "201912300935568_Img"; }
         }
         
         string IMigrationMetadata.Source

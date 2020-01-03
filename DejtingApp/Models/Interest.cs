@@ -11,10 +11,9 @@ namespace DejtingApp.Models
     {
         [Key]
         [Required]
-        public int Id { get; set; }
+        public int InterestId { get; set; }
         public string InterestName { get; set; }
 
-        
         public int ProfileId { get; set; }
         [ForeignKey("ProfileId")]
         public virtual Profile Profiles { get; set; }

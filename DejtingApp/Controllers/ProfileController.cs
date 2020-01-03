@@ -11,7 +11,7 @@ namespace DejtingApp.Controllers
     
     public class ProfileController : Controller
     {
-        // GET: Profile
+        // GET: Profiles
         // Ska hantera profil, intressen
         public ActionResult Index(int? profileId)
         {

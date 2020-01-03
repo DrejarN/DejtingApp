@@ -7,13 +7,13 @@ namespace DejtingApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitialCreat : IMigrationMetadata
+    public sealed partial class Interest : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreat));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Interest));
         
         string IMigrationMetadata.Id
         {
-            get { return "202001031124408_InitialCreat"; }
+            get { return "202001031316428_Interest"; }
         }
         
         string IMigrationMetadata.Source

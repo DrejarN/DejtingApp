@@ -2,12 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    @*@<meta name="viewport" content="width=device-width, initial-scale=1.0">*@
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link type="text/css" rel="stylesheet" href="~/Content/materialize/css/materialize.min.css" media="screen,projection" />
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
@@ -21,13 +18,27 @@
                 </button>
                 @Html.ActionLink("Up-Yours", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse" style="text-align: center">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Profile", "Index", "Profile")</li>
-                    <li>@Html.ActionLink("ProfileUser", "IndexUser", "Profile")</li>
+                    <li style="margin-top: 12px">
+                        @*@Html.Partial("_SearchUser")*@
+                        @*@using (Html.BeginForm("SearchUser", "Home", FormMethod.Get))
+                            {
+
+                            }*@
+
+                        <div>
+                            @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+                            {
+                                @Html.TextBox("input")
+                                <input type="submit" value="Search" />
+                            }
+                        </div>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -44,7 +55,9 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/materialize/materialize.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+    @*<script type="text/javascript" src="~/Scripts/materialize/materialize.min.js"></script>*@
 </body>
 </html>

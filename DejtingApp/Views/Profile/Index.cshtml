@@ -14,16 +14,17 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <img />
+            @*var result = Model.profiles.Select(o => o.ImagePath == User.Identity.GetUserId());*@
+               <img src="@Model.profiles.Select(o => o.ImagePath == User.Identity.GetUserId())"/>
         </div>
         <div class="col-md-8">
             <div class="list-group">
                 @foreach (var name in Model.profiles)
-                {
+                    {
                     <h4 class="list-group-item-heading">@name.Förnamn skrev:</h4>
                 } @foreach (var message in Model.Messages) {
                     <p class="list-group-item-text">@message.MessageText</p>
-                }
+            }
 
 
                 @*

@@ -15,6 +15,7 @@ namespace DejtingApp.Controllers
         // Ska hantera profil, intressen
         public ActionResult Index(int? profileId)
         {
+            if(User.Identity.GetUserId() == null) { return RedirectToAction("Register", "Account"); }
             if (profileId == null) { profileId = 1; }; //hårdkodar in pga finns ej real thing
 
             var ctx = new AppDbContext();

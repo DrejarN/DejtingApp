@@ -1,0 +1,157 @@
+﻿@model IEnumerable<DejtingApp.Models.Profile>
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Your search results</h2>
+
+<table class="table" align="center">
+    <tr>
+        <th>
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Förnamn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Efternamn)
+        </th>
+        <th>
+            Ålder
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="@item.ImagePath" height="100" width="100" />
+            </td>
+            <td>
+                <a href="https://localhost:44375/Profile/Index?profileId=@item.ProfileId">@item.Förnamn</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Efternamn)
+            </td>
+            <td>
+                @{
+                    var today = DateTime.Today;
+                    var date = today.Year - item.Födelseår.Year;
+                    if (item.Födelseår.Date > today.AddYears(-date)) { date--; }
+
+
+                    @Html.DisplayFor(modelItem => date);
+                }
+
+            </td>
+            <td>
+                @using (Html.BeginForm("AddFriend", "Home", FormMethod.Post))
+                {
+                    <button class="btn-success" value="@item.ProfileId">Send friend request</button>
+                    @*@Html.TextBoxFor(modelItem => item.ProfileId)
+                        <input type="submit" value="Add friend" />*@
+                }
+
+            </td>
+            <td>
+                @*<button type="submit" onclick="return AddFriend(@item.ProfileId);">Send friend request</button>
+        <script type="text/javascript">
+            function AddToCart() {
+                $.ajax({ url: "AddFriend", success: function () { alert("Success"); } }); return false;
+            }</script>*@
+
+                <button id="test" class="btn-success">Send friend request</button>
+
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#test').click(function (e) {
+                            e.preventDefault();
+                            $.ajax({
+                                type: "POST",
+                                url: "@Url.Action("AddFriend", "Home")",
+                                data: {
+                                    profileId: '@item.ProfileId'
+                                },
+                                success: function () {
+                                    alert('ok');
+                                },
+                                error: function () {
+                                    alert('error');
+                                }
+                            });
+                        });
+                    });
+                </script>
+
+                @*<input type="button" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { id = item.ProfileId })'" />*@
+
+                @*<div id="target">
+            @using (Ajax.BeginForm("AddFriend", "Home", new AjaxOptions
+            {
+                OnSuccess = "OnSuccess",
+                OnFailure = "OnFailure",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "target",
+                HttpMethod = "POST",
+
+            }))
+
+            {
+                <input type="submit" value="Send friend request" />
+                <input type="submit" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { id = item.ProfileId })'" />
+                <button class="btn-success" value="@item.ProfileId" onclick="return AddFriend(@item.ProfileId)">Send friend request</button>
+
+                <script type="text/javascript">
+                    function AddFriend() {
+                        $.ajax({ url: "AddFriend", success: function () { alert("Success"); } }); return false;
+                    };
+                </script>
+
+                <script type="text/javascript">
+                    function OnSuccess() {
+                        alert("Friend request sent")
+                    };
+                    function OnFailure() {
+                        alert("Error occured.");
+                    };
+                </script>
+            }
+        </div>*@
+            </td>
+            <td>
+                @*@{
+                    @Html.ActionLink("Send friend request", "AddFriend", null, new { profileId = item.ProfileId })
+                    <script type="text/javascript">
+                        $("#profileId").click(function (e) {
+
+                            e.preventDefault();
+                            $.ajax({
+
+                                url: $(this).attr("href"), // comma here instead of semicolon
+                                success: function () {
+                                    alert("Value Added");  // or any other indication if you want to show
+                                }
+
+                            });
+
+                        });
+                    </script>*@
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="targetId">
+    
+</div>
+
+
+
+@*<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
+
+    
+

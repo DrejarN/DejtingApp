@@ -27,12 +27,22 @@ namespace DejtingApp.Controllers
 
             ProfilePageViewModels viewModel = new ProfilePageViewModels();
 
-            List<Profile> lista = ctx.Profiles.ToList();
-            viewModel.Profiles = lista.Where(o => o.ApplicationUser == User.Identity.GetUserId()).ToList();
-            viewModel.Messages = ctx.Messages.ToList();
-            viewModel.Friends = ctx.Friends.ToList();
+            int id = getUser();
+            
+            viewModel.Profiles = ctx.Profiles.Where(x => x.ProfileId == id).ToList();
+            viewModel.Messages = ctx.Messages.Where(o => o.RecieverId == id).ToList();
+            viewModel.Friends = ctx.Friends.Where(f => f.RecieverId == id).ToList();
 
             return View(viewModel);
+        }
+
+        public int getUser()
+        {
+            var ctx = new AppDbContext();
+            List<Profile> enLista = ctx.Profiles.ToList();
+            Profile enprofil = enLista.FirstOrDefault(x => x.ApplicationUser == User.Identity.GetUserId());
+            int id = enprofil.ProfileId;
+            return id;
         }
 
         //[HttpGet]

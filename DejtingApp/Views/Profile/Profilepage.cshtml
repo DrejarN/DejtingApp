@@ -1,0 +1,80 @@
+﻿@using DejtingApp.Models
+
+@model  DejtingApp.Models.ProfilePageViewModels
+
+@{
+    ViewBag.Title = "Profilepage";
+}
+
+<h2>Profil</h2>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            @foreach (var item in Model.Profiles)
+            {
+                <img src="@Html.DisplayFor(modelItem => item.ImagePath)" style="width: 200px; height: 250px" />
+            }
+        </div>
+        <div class="col-md-8" style="border-color: black">
+            @*List of messages*@
+            @foreach (var item in Model.Messages)
+            {
+                <div class="list-group">
+                    <h4 class="list-group-item-heading">Jamie Jones skrev: </h4> @*Jamie Jones skrev: *@
+                    <p class="list-group-item-text">@Html.DisplayFor(modelItem => item.MessageText)</p> @* Message from Jamie Jones goes here..*@
+
+                </div>
+            }
+        </div>
+    </div>
+    <div class="row">
+        @foreach (var item in Model.Profiles)
+        {
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => item.Förnamn)
+                @Html.DisplayFor(modelItem => item.Efternamn),
+
+                @{
+                    var today = DateTime.Today;
+                    var date = today.Year - item.Födelseår.Year;
+                    if (item.Födelseår.Date > today.AddYears(-date)) { date--; }
+
+
+                    @Html.DisplayFor(modelItem => date);
+                }
+
+            </div>
+        }
+        <div class="col-md-8">
+            <form>
+                <input />
+            </form>
+            @*Message input field*@
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            @*Whitespace*@
+        </div>
+        <div class="col-md-8">
+            @*En submit knapp för att skriva på wallen *@
+            <button>
+                Submit comment
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            @foreach (var item in Model.Profiles)
+            {
+                <h4>Description</h4>
+                @Html.DisplayFor(modelItem => item.Description)
+            }
+        </div>
+
+        <div class="col-md-8">
+        </div>
+    </div>
+</div>

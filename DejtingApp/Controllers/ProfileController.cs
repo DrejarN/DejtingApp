@@ -13,18 +13,19 @@ namespace DejtingApp.Controllers
 {
     public class ProfileController : Controller
     {
-        // GET: Profile
+        // Hämtar ProfileId på inloggad användare
+        public int getUser()
+        {
+            var ctx = new AppDbContext();
+            List<Profile> enLista = ctx.Profiles.ToList();
+            Profile enprofil = enLista.FirstOrDefault(x => x.ApplicationUser == User.Identity.GetUserId());
+            int id = enprofil.ProfileId;
+            return id;
+        }
+        // GET: OwnProfile
         public ActionResult Index()
         {
-            //using (AppDbContext dbModel = new AppDbContext())
-
-            //{
-            //    return View(dbModel.Profiles.ToList());
-            //}
-
             var ctx = new AppDbContext();
-
-
             ProfilePageViewModels viewModel = new ProfilePageViewModels();
 
             int id = getUser();
@@ -36,14 +37,23 @@ namespace DejtingApp.Controllers
             return View(viewModel);
         }
 
-        public int getUser()
+        // Get: OtherProfile
+
+        public ActionResult Profilepage(int profileId)
         {
             var ctx = new AppDbContext();
-            List<Profile> enLista = ctx.Profiles.ToList();
-            Profile enprofil = enLista.FirstOrDefault(x => x.ApplicationUser == User.Identity.GetUserId());
-            int id = enprofil.ProfileId;
-            return id;
+            int id = profileId; //getUser();
+
+            ProfilePageViewModels viewModel = new ProfilePageViewModels();
+
+            viewModel.Profiles = ctx.Profiles.Where(x => x.ProfileId == id).ToList();
+            viewModel.Messages = ctx.Messages.Where(o => o.RecieverId == id).ToList();
+            viewModel.Friends = ctx.Friends.Where(f => f.RecieverId == id).ToList();
+
+            return View(viewModel);
         }
+
+       
 
         //[HttpGet]
         //public ActionResult Add(int id)

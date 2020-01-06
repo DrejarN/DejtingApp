@@ -10,6 +10,15 @@ namespace DejtingApp.Controllers
 {
     public class HomeController : Controller
     {
+        public int getUser()
+        {
+            var ctx = new AppDbContext();
+            List<Profile> enLista = ctx.Profiles.ToList();
+            Profile enprofil = enLista.FirstOrDefault(x => x.ApplicationUser == User.Identity.GetUserId());
+            int id = enprofil.ProfileId;
+            return id;
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -29,39 +38,22 @@ namespace DejtingApp.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult AddFriend(int? profileId)
+        //Send friend request to user 
+        public ActionResult AddFriend(int profileId)
         {
             var ctx = new AppDbContext();
-            var RecieverId = profileId; //Inget hämtas: null
-            var sender = User.Identity.GetUserId();
-            var SenderId = (from Profile in ctx.Profiles
-                            where Profile.ApplicationUser == sender
-                            orderby Profile.ProfileId
-                            select profileId).First(); //Inget hämtas: null
+            var RecieverId = profileId; 
+            var senderId = getUser();
 
-             FriendRequest friendRequest = new FriendRequest { SenderId = SenderId, RecieverId = RecieverId };
+            FriendRequest friendRequest = new FriendRequest { SenderId = senderId, RecieverId = RecieverId };
 
             ctx.FriendRequests.Add(friendRequest);
             ctx.SaveChanges();
 
-            return Content("Hiho");
+            return RedirectToAction("Search", "Home");
         }
-
 
         // GET: Search Results
-        public ActionResult SearchResults(string input) 
-        {
-            var ctx = new AppDbContext();
-            //var profiles = ctx.Profiles.ToList();
-            var results = ctx.Profiles.Where(u => u.Förnamn.Contains(input)).ToList(); //&& ctx.Profiles.Where(z => z.Active.Equals(true))
-            //var searchResults = new IEnumerable<SearchViewModel>;
-
-
-            return View();
-        }
-
-        // POST: Search Results
 
         public ActionResult Search(string input)
         {
@@ -70,24 +62,5 @@ namespace DejtingApp.Controllers
 
             return View(results);
         }
-
-
-        //public ActionResult SearchUser()
-        //{
-        //    var ctx = new AppDbContext();
-        //    var viewModel = new SearchViewModel
-        //    {
-        //        Profiles = ctx.Profiles.ToList()
-        //    };
-
-        //    return View(viewModel);
-        //}
-
-        //public ActionResult Profile()
-        //{
-        //    ViewBag.Message = "Your profile page";
-
-        //    return View();
-        //}
     }
 }

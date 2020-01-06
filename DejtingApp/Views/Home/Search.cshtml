@@ -54,8 +54,7 @@
 
             @*<button id="test" class="btn-success">Send friend request</button>*@
 
-            @Html.ActionLink("Send friend request", "AddFriend", "Home", new { @item.ProfileId }, null)
-            @*<input type="submit" id="test" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { @item.ProfileId })'" />*@
+            <input type="submit" class="btn-success" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { @item.ProfileId })'" />
 
 
        

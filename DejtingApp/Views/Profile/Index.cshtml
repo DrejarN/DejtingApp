@@ -6,35 +6,34 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Profil</h2>
 
-
-<div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                @foreach (var item in Model.Profiles)
-                {    
-                    <img src="@Html.DisplayFor(modelItem => item.ImagePath)" style="width: 200px; height: 250px" />
-                }
-                </div>
-            <div class="col-md-8" style="border-color: black">
-                @*List of messages*@
-                @foreach (var item in Model.Messages)
-                {
-                    <div class="list-group">
-                        <h4 class="list-group-item-heading">Jamie Jones skrev: </h4> @*Jamie Jones skrev: *@
-                        <p class="list-group-item-text">@Html.DisplayFor(modelItem => item.MessageText)</p> @* Message from Jamie Jones goes here..*@
-                        
-                    </div>
-                }
-                </div>
-        </div>
-        <div class="row">
+<div class="container" style="margin-top: 30px">
+    <div class="row">
+        <div class="col-md-4">
             @foreach (var item in Model.Profiles)
             {
-            <div class="col-md-4">
+                <img src="@Html.DisplayFor(modelItem => item.ImagePath)" style="width: 200px; height: 250px" />
+            }
+        </div>
+        <div class="col-md-8" style="border-color: black">
+            @*List of messages*@
+
+            @foreach (var item in Model.Messages)
+            {
+                <div class="list-group">
+                    <h4 class="list-group-item-heading">Jamie Jones skrev: </h4> @*Jamie Jones skrev: *@
+                    <p class="list-group-item-text">@Html.DisplayFor(modelItem => item.MessageText)</p> @* Message from Jamie Jones goes here..*@
+
+                </div>
+            }
+        </div>
+    </div>
+    <div class="row">
+        @foreach (var item in Model.Profiles)
+        {
+            <div class="col-md-4" style="font-size: 20px; font-weight: bold">
                 @Html.DisplayFor(modelItem => item.Förnamn)
-                @Html.DisplayFor(modelItem => item.Efternamn), 
+                @Html.DisplayFor(modelItem => item.Efternamn),
 
                 @{
                     var today = DateTime.Today;
@@ -46,35 +45,34 @@
                 }
 
             </div>
+        }
+        <div class="col-md-8">
+            <textarea class="form-control form-group-lg" placeholder="Make your move"></textarea>
+            @*Message input field*@
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            @*Whitespace*@
+        </div>
+        <div class="col-md-8">
+            @*En submit knapp för att skriva på wallen *@
+            <br />
+            <input type="button" value="Send message!" class="btn-large btn-primary" id="sendMessage" /> @* AJAX call ska peka på '#sendMessage'*@
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            @foreach (var item in Model.Profiles)
+            {
+                <h4 class="list-group-item-heading">About me</h4>
+                <p class="list-group-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
             }
-                <div class="col-md-8">
-                    <form>
-                        <input />
-                    </form>
-                    @*Message input field*@
-                </div>
-            </div>
-        <div class="row">
-            <div class="col-md-4">
-                @*Whitespace*@
-            </div>
-            <div class="col-md-8">
-                @*En submit knapp för att skriva på wallen *@
-                <button>
-                    Submit comment
-                </button>
-            </div>
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                @foreach (var item in Model.Profiles)
-                {
-                    <h4>Description</h4>
-                    @Html.DisplayFor(modelItem => item.Description)
-                }
-            </div>
-                
-            <div class="col-md-8">
-            </div>
+        <div class="col-md-8"> @*SHow friend list?*@
+        @foreach (var dud in Model.Profiles) {
+            <input type="submit" class="btn-success" value="View friend list" onclick="location.href='@Url.Action("ViewFriendList", "Profile", new { @dud.ProfileId })'" />
+        }
         </div>
+    </div>
 </div>

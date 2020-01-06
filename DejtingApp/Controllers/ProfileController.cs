@@ -53,6 +53,32 @@ namespace DejtingApp.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
+        public ActionResult ViewFriendList(int profileId)
+        {
+            var ctx = new AppDbContext();
+            FriendListViewModel viewModel = new FriendListViewModel();
+
+            var result = (from Friend in ctx.Friends
+                          join Category in ctx.Categories on Friend.CategoryId equals Category.CategoryId
+                          join Profile in ctx.Profiles on Friend.RecieverId equals Profile.ProfileId
+                          where Friend.RecieverId != profileId
+                          select new FriendListViewModel
+                          {
+                              ProfileId = Profile.ProfileId,
+                              ImagePath = Profile.ImagePath,
+                              Förnamn = Profile.Förnamn,
+                              Efternamn = Profile.Efternamn,
+                              CategoryId = Category.CategoryId,
+                              CategoryName = Category.CategoryName
+                              
+
+                          }).ToList();
+
+
+            return View(result);
+        }
+
        
 
         //[HttpGet]

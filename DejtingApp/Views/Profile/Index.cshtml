@@ -1,106 +1,60 @@
-﻿@model IEnumerable<DejtingApp.Models.Profile>
+﻿@using DejtingApp.Models
+
+@model  DejtingApp.Models.ProfilePageViewModels
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Förnamn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Efternamn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Födelseår)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Active)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImagePath)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ApplicationUser)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Förnamn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Efternamn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Födelseår)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Active)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImagePath)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApplicationUser)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProfileId }) |
-        </td>
-    </tr>
-}
+<h2>Profil</h2>
 
 </table>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-4"> @*Profilbild*@
-            @*var result = Model.profiles.Select(o => o.ImagePath == User.Identity.GetUserId());*@
-            <img src="" />
-        </div>
-        <div class="col-md-8">  @*List of messages*@
-            <div class="list-group">
-                <h4 class="list-group-item-heading"></h4> @*Jamie Jones skrev: *@
-                <p class="list-group-item-text"></p> @* Message from Jamie Jones goes here..*@
+    @foreach (var item in Model.Profiles)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => item.ImagePath)
+                <img src="" />
+            </div>
+            <div class="col-md-8">
+                @*List of messages*@
+                <div class="list-group">
+                    <h4 class="list-group-item-heading"></h4> @*Jamie Jones skrev: *@
+                    <p class="list-group-item-text"></p> @* Message from Jamie Jones goes here..*@
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            @*Namn, ålder*@
+        <div class="row">
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => item.Förnamn)
+                @Html.DisplayFor(modelItem => item.Efternamn)
+                @Html.DisplayFor(modelItem => item.Födelseår)
+            </div>
+            <div class="col-md-8">
+                @*Message input field*@
+            </div>
         </div>
-        <div class="col-md-8">
-            @*Message input field*@
+        <div class="row">
+            <div class="col-md-4">
+                @*Whitespace*@
+            </div>
+            <div class="col-md-8">
+                @*En submit knapp för att skriva på wallen *@
+                <button>
+                    Submit comment
+                </button>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            @*Whitespace*@
+        <div class="row">
+            <div class="col-md-4">
+                <h4>Description</h4>
+                @Html.DisplayFor(modelItem => item.Description)
+            </div>
+            <div class="col-md-8">
+            </div>
         </div>
-        <div class="col-md-8">
-            @*En submit knapp för att skriva på wallen *@
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <h4>Description</h4>
-            @*Description, interests *@
-        </div>
-        <div class="col-md-8">
-        </div>
-    </div>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ProfileId })
+}
 </div>

@@ -16,6 +16,8 @@ namespace DejtingApp.Models
         public DbSet<Message> Messages { get; set; }
         public DbSet<FriendRequest> FriendRequests { get; set; }
 
+        public DbSet<Friend> Friends { get; set; }
+
 
 
         public AppDbContext() : base(ConfigurationManager.ConnectionStrings["AppDbContext"].ConnectionString) { }

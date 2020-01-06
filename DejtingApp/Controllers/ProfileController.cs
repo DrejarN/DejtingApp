@@ -16,10 +16,23 @@ namespace DejtingApp.Controllers
         // GET: Profile
         public ActionResult Index()
         {
-            using (AppDbContext dbModel = new AppDbContext())
-            {
-                return View(dbModel.Profiles.ToList());
-            }
+            //using (AppDbContext dbModel = new AppDbContext())
+
+            //{
+            //    return View(dbModel.Profiles.ToList());
+            //}
+
+            var ctx = new AppDbContext();
+
+
+            ProfilePageViewModels viewModel = new ProfilePageViewModels();
+
+            List<Profile> lista = ctx.Profiles.ToList();
+            viewModel.Profiles = lista.Where(o => o.ApplicationUser == User.Identity.GetUserId()).ToList();
+            viewModel.Messages = ctx.Messages.ToList();
+            viewModel.Friends = ctx.Friends.ToList();
+
+            return View(viewModel);
         }
 
         //[HttpGet]

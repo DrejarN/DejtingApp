@@ -1,41 +1,81 @@
-﻿@using DejtingApp.Models
-@using Microsoft.AspNet.Identity;
-@model ProfilePageIndexViewModel
+﻿@model IEnumerable<DejtingApp.Models.Profile>
+
 @{
-    ViewBag.Title = "Profile";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
 }
 
-@*   User.Identity.GetUserId();  *@
+<h2>Index</h2>
 
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Förnamn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Efternamn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Födelseår)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplicationUser)
+        </th>
+        <th></th>
+    </tr>
 
-<h2>My Profile</h2>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Förnamn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Efternamn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Födelseår)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImagePath)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApplicationUser)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProfileId }) |
+        </td>
+    </tr>
+}
+
+</table>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4"> @*Profilbild*@
             @*var result = Model.profiles.Select(o => o.ImagePath == User.Identity.GetUserId());*@
-               <img src="@Model.profiles.Select(o => o.ImagePath == User.Identity.GetUserId())"/>
+            <img src="" />
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8">  @*List of messages*@
             <div class="list-group">
-                @foreach (var name in Model.profiles)
-                    {
-                    <h4 class="list-group-item-heading">@name.Förnamn skrev:</h4>
-                } @foreach (var message in Model.Messages) {
-                    <p class="list-group-item-text">@message.MessageText</p>
-            }
-
-
-                @*
-        @Model.Profiles.Select(x => x.Förnamn).Where(b => b.)  new { Message  }) var test =  .Groups.Select(x => new { Group = x.Name, Count = x.Members.Count() } );
-        @Model.Profiles.Where(x => x.Förnamn;
-                *@
-
-
-
-
-
+                <h4 class="list-group-item-heading"></h4> @*Jamie Jones skrev: *@
+                <p class="list-group-item-text"></p> @* Message from Jamie Jones goes here..*@
             </div>
         </div>
     </div>

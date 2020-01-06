@@ -5,108 +5,110 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.IO;
 
 namespace DejtingApp.Controllers
 {
-    
     public class ProfileController : Controller
     {
-        // GET: Profiles
-        // Ska hantera profil, intressen
-        public ActionResult Index(int? profileId)
+        // GET: Profile
+        public ActionResult Index()
         {
-            if(User.Identity.GetUserId() == null) { return RedirectToAction("Register", "Account"); }
-            if (profileId == null) { profileId = 1; }; //hårdkodar in pga finns ej real thing
-
-            var ctx = new AppDbContext();
-            var ctx1 = new ApplicationDbContext();
-
-            //var quet2 = ctx.Messages.ToList();
-
-            //var quueeryy =
-            //    (from p in ctx.Profiles
-            //     join pp in ctx.ProfilePages on p.ProfileID equals pp.ProfileId
-            //     join m in ctx.Messages on pp.ProfilePageId equals m.RecieverId
-            //     where p.ProfileID == profileId
-            //     select new ProfilePageIndexViewModel
-            //     {
-            //         profilePage = pp,
-            //         profile = p,
-            //         Messages = m
-            //         //Messages = m.ToList()
-            //         //Messages = m.ToList()
-            //         //Messages = ctx.Messages.ToList().FindAll(x => x.RecieverId == profileId)
-            //     }).ToList();
-
-            var vM = new ProfilePageIndexViewModel
+            using (AppDbContext dbModel = new AppDbContext())
             {
-                //profilePages = ctx.ProfilePages.ToList().FindAll(x => x.ProfilePageId == profileId),
-                profiles = ctx.Profiles.ToList().FindAll(x => x.ProfileId == profileId),
-                Messages = ctx.Messages.ToList().FindAll(x => x.RecieverId == profileId)
-            };
-
-            return View(vM);
+                return View(dbModel.Profiles.ToList());
+            }
         }
 
-        //public ActionResult Index()
+        //[HttpGet]
+        //public ActionResult Add(int id)
         //{
-        //    var ctx = new AppDbContext();
-        //    var ctx1 = new ApplicationDbContext();
-        //    var vM = new ProfilePageViewModel
+        //    using (AppDbContext dbModel = new AppDbContext())
         //    {
-        //        ProfilePages = ctx.ProfilePages.ToList(),
-        //        Profiles = ctx.Profiles.ToList()
-        //    };
-
-        //    return View(vM);
+        //        return View(dbModel.Profiles.Where(x => x.ProfileId == id).FirstOrDefault());
+        //    }
         //}
 
-        public ActionResult IndexUser(int? userId)
-        {
-            var ctx = new AppDbContext();
-            var vM = new ProfilePageViewModel
-            {
-                Profiles = ctx.Profiles.ToList()
-            };
+        //[HttpPost]
+        //public ActionResult Add(int id, HttpPostedFileBase file)
+        //{
+        //    if (file != null && file.ContentLength > 0)
+        //        try
+        //        {
 
-            return View(vM);
+        //            using (AppDbContext dbModel = new AppDbContext())
+        //            {
+        //                var result = dbModel.Profiles.SingleOrDefault(o => o.ProfileId == id);
+        //                result.ImagePath = Path.GetFileName(file.FileName);
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ViewBag.Message = "ERROR:" + ex.Message.ToString();
+        //        }
+        //    else
+        //    {
+        //        ViewBag.Message = "You have not specified a file.";
+        //    }
+        //    return RedirectToAction("Index");
+        //}
+
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            using (AppDbContext dbModel = new AppDbContext())
+            {
+                return View(dbModel.Profiles.Where(x => x.ProfileId == id).FirstOrDefault());
+            }
         }
 
+        // POST: Profile/Edit/5
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection profil)
+        {
+            try
+            {
+                using (AppDbContext dbModel = new AppDbContext())
+                {
+                    var result = dbModel.Profiles.SingleOrDefault(o => o.ProfileId == id);
+                    result.Förnamn = Request["Förnamn"];
+                    result.Efternamn = Request["Efternamn"];
+                    result.Födelseår = Convert.ToDateTime(Request["Födelseår"]);
+                    result.Description = Request["Description"];
+      
+                    dbModel.SaveChanges();
+                }
 
-        //public ActionResult getMessageName()
-        //{
-        //    var senderName = db.Profiles.
-        //    Join(db.ProfilePages, u => u.ProfileID, uir => uir.ProfilePageId,
-        //(u, uir) => new { u, uir }).
-        //Join(db.Messages, r => r.uir.ProfilePageId, ro => ro.SenderId, (r, ro) => new { r, ro })
-        //.Where(m => m.ro.SenderId == 1);
-        //    .Where(m => m.r.u.UserId == 1)
-        //    .Select(m => new AddUserToRole
-        //    {
-        //        UserName = m.r.u.UserName,
-        //        RoleName = m.ro.RoleName
-        //    });
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        // GET: Profile/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
 
+        // POST: Profile/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
 
-
-
-            //         var senderName = db.Messages.Include(u => u.).        .Include(u => u.UserProfile).Include(u => u.Roles)
-            // .Select(m => new
-            //{
-            //    UserName = u.UserProfile.UserName,
-            //    RoleName = u.Roles.RoleName
-            //});
-        //    return View();
-        //}
-
-        //public ActionResult getProfile()
-        //{
-        //    var ctx = new AppDbContext();
-        //    var viewModel = new ProfileIndexViewModel
-        //    {
-        //        Profiles = ctx.Profiles.ToList()
-        //    };
-        //    return View(viewModel);
-        //}
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }

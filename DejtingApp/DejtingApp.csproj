@@ -336,12 +336,14 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Person\Index.cshtml" />
     <Content Include="Views\Person\RegisterUserForm.cshtml" />
-    <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\CreateMessage.cshtml" />
     <Content Include="Views\Account\RegisterProfile.cshtml" />
     <Content Include="Views\Shared\_SearchUser.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Home\SearchResults.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

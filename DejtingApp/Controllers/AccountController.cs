@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using DejtingApp.Models;
+using System.Collections.Generic;
+using System.Web.Routing;
 
 namespace DejtingApp.Controllers
 {
@@ -22,7 +24,7 @@ namespace DejtingApp.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,12 +36,20 @@ namespace DejtingApp.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
+        public int getUser()
+        {
+            var ctx = new AppDbContext();
+            List<Profile> enLista = ctx.Profiles.ToList();
+            Profile enprofil = enLista.FirstOrDefault(x => x.ApplicationUser == User.Identity.GetUserId());
+            int id = enprofil.ProfileId;
+            return id;
+        }
         public ApplicationUserManager UserManager
         {
             get
@@ -50,6 +60,40 @@ namespace DejtingApp.Controllers
             {
                 _userManager = value;
             }
+        }
+        public ActionResult ViewFriendRequest(int profileId)
+        {
+            var ctx = new AppDbContext();
+            FriendRequestViewModel viewModel = new FriendRequestViewModel();
+
+            var result = (from FriendRequest in ctx.FriendRequests
+                          join Profile in ctx.Profiles on FriendRequest.SenderId equals Profile.ProfileId
+                          where FriendRequest.RecieverId == profileId
+                          select new FriendRequestViewModel
+                          {
+                              ProfileId = Profile.ProfileId,
+                              ImagePath = Profile.ImagePath,
+                              Förnamn = Profile.Förnamn,
+                              Efternamn = Profile.Efternamn,
+
+                          }).ToList();
+
+            return View(result);
+        }
+        public ActionResult DeclineFriendRequest(int profileId)
+        {
+            int pid = getUser();
+            using (var ctx = new AppDbContext())
+            {
+                var FriendReq = ctx.FriendRequests.FirstOrDefault(o => o.SenderId == profileId && o.RecieverId == pid);
+                if(FriendReq != null)
+                {
+                    ctx.FriendRequests.Remove(FriendReq);
+                    ctx.SaveChanges();
+
+                }
+            }
+            return RedirectToAction("ViewFriendRequest", new { profileId = pid });
         }
 
         //

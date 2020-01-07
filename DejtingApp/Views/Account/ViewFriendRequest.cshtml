@@ -1,0 +1,71 @@
+﻿@model IEnumerable<DejtingApp.Models.FriendRequestViewModel>
+
+@{
+    ViewBag.Title = "Your pending friendrequests";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ViewFriendRequest</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProfileId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Förnamn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Efternamn)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProfileId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImagePath)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Förnamn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Efternamn)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ProfileId })
+            @*@Html.ActionLink("Delete", "DeclineFriendRequest", null, new { id = "delete" })*@
+            @Html.ActionLink("Delete", "DeclineFriendRequest", "Account", new { item.ProfileId }, null)
+            @*<button type="submit" onclick="return DeclineFriendRequest();"></button>*@
+        
+            @*<script type="text/javascript">
+                $("#delete").click(function (e) {
+
+                    e.preventDefault();
+                    $.ajax({
+                        url: $(this).attr("href"),
+                        //type: 'POST',
+                        data: {id = @item.ProfileId},
+                        success: function () {
+                            alert("Value Added");
+                        }
+
+                    });
+
+                });
+
+            </script>*@
+        </td>
+    </tr>
+}
+
+</table>

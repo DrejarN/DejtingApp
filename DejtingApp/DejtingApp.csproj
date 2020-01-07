@@ -360,6 +360,7 @@
     <Content Include="Views\Profile\Add.cshtml" />
     <Content Include="Views\Profile\Profilepage.cshtml" />
     <Content Include="Views\Profile\ViewFriendList.cshtml" />
+    <Content Include="Views\Account\ViewFriendRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

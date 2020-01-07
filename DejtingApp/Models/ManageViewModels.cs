@@ -83,4 +83,13 @@ namespace DejtingApp.Models
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
     }
+
+    public class FriendRequestViewModel
+    {
+        public int ProfileId { get; set; }
+        public string ImagePath { get; set; }
+        public string Förnamn { get; set; }
+        public string Efternamn { get; set; }
+
+    }
 }

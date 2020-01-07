@@ -1,4 +1,5 @@
 ﻿@using DejtingApp.Models
+@using Microsoft.AspNet.Identity
 
 @model  DejtingApp.Models.ProfilePageViewModels
 
@@ -6,17 +7,21 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Profil</h2>
+<br>
+<body>
 
 
-<div class="container">
+    <h2>Profil</h2>
+
+
+    <div class="container">
         <div class="row">
             <div class="col-md-4">
                 @foreach (var item in Model.Profiles)
-                {    
+                {
                     <img src="@Html.DisplayFor(modelItem => item.ImagePath)" style="width: 200px; height: 250px" />
                 }
-                </div>
+            </div>
             <div class="col-md-8" style="border-color: black">
                 @*List of messages*@
                 @foreach (var item in Model.Messages)
@@ -24,45 +29,42 @@
                     <div class="list-group">
                         <h4 class="list-group-item-heading">Jamie Jones skrev: </h4> @*Jamie Jones skrev: *@
                         <p class="list-group-item-text">@Html.DisplayFor(modelItem => item.MessageText)</p> @* Message from Jamie Jones goes here..*@
-                        
                     </div>
                 }
-                </div>
+            </div>
         </div>
         <div class="row">
             @foreach (var item in Model.Profiles)
             {
-            <div class="col-md-4">
-                @Html.DisplayFor(modelItem => item.Förnamn)
-                @Html.DisplayFor(modelItem => item.Efternamn), 
+                <div class="col-md-4">
+                    @Html.DisplayFor(modelItem => item.Förnamn)
+                    @Html.DisplayFor(modelItem => item.Efternamn),
 
-                @{
-                    var today = DateTime.Today;
-                    var date = today.Year - item.Födelseår.Year;
-                    if (item.Födelseår.Date > today.AddYears(-date)) { date--; }
+                    @{
+                        var today = DateTime.Today;
+                        var date = today.Year - item.Födelseår.Year;
+                        if (item.Födelseår.Date > today.AddYears(-date)) { date--; }
 
 
-                    @Html.DisplayFor(modelItem => date);
-                }
+                        @Html.DisplayFor(modelItem => date);
+                    }
 
-            </div>
-            }
-                <div class="col-md-8">
-                    <form>
-                        <input />
-                    </form>
-                    @*Message input field*@
                 </div>
+            }
+            <div class="col-md-8">
+                <form>
+                    <input id="mesText" />
+                </form>
+                @*Message input field*@
             </div>
+        </div>
         <div class="row">
             <div class="col-md-4">
                 @*Whitespace*@
             </div>
             <div class="col-md-8">
                 @*En submit knapp för att skriva på wallen *@
-                <button>
-                    Submit comment
-                </button>
+                <button type="button" id="submit" onclick="CreateMessage()">Submit</button>
             </div>
         </div>
         <div class="row">
@@ -73,8 +75,88 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 }
             </div>
-                
+
             <div class="col-md-8">
             </div>
         </div>
-</div>
+    </div>
+
+    @*<script type="text/javascript">
+            $("#submit").click(function () {
+                var today = new Date();
+                var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                var dateTime = date + ' ' + time;
+                var Message = {
+                    MessageText: $("#mesText").val(),
+                    MessageCreated: today,
+                    SenderID: "@User.Identity.GetUserId()";
+                    @foreach(var item in Model.Profiles) {
+
+                        var id = item.ProfileId;
+                    }
+                    RecieverID: id;
+                };
+
+                if (Message.MessageText != "") {
+                    var DTO = JSON.stringify(Message);
+                    $.ajax({
+                        url: 'api/Messages/PostMessage',
+                        cache: false,
+                        type: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        data: DTO,
+                        dataType: "json",
+                        success: function (data) {
+                            alert('added');
+                        }
+                    }).fail(
+                        function (xhr, textStatus, err) {
+                            alert(err);
+                        });
+                }
+                else {
+                    alert('You need some text bro!!');
+                }
+
+            }
+        </script>*@
+
+    @section Head {
+        <script type="text/javascript">
+            function CreateMessage() {
+
+                //Making complex type object
+                var Message = {
+                    MessageText: $("#mesText").val(),
+                    MessageCreated: "2019-02-11",
+                    SenderID: "3",
+                    RecieverID: "2"
+                };
+
+                if (Message.MessageText != "") {
+                    var DTO = JSON.stringify(Product);
+                    $.ajax({
+                        url: 'api/message', //calling Web API controller product
+                        cache: false,
+                        type: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        data: DTO,
+                        dataType: "json",
+                        success: function (data) {
+                            alert('added');
+                        }
+                    }).fail(
+                        function (xhr, textStatus, err) {
+                            alert(err);
+                        });
+
+                }
+                else {
+                    alert('Please Enter All the Values !!');
+                }
+
+            });
+        </script>
+    }
+</body>

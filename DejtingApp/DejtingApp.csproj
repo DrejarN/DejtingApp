@@ -208,12 +208,30 @@
     <Compile Include="Migrations\202001032015082_3.Designer.cs">
       <DependentUpon>202001032015082_3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001071125009_ProfileView_and_Image.cs" />
+    <Compile Include="Migrations\202001071125009_ProfileView_and_Image.Designer.cs">
+      <DependentUpon>202001071125009_ProfileView_and_Image.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001071128493_Image.cs" />
+    <Compile Include="Migrations\202001071128493_Image.Designer.cs">
+      <DependentUpon>202001071128493_Image.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001071140431_ImageNew.cs" />
+    <Compile Include="Migrations\202001071140431_ImageNew.Designer.cs">
+      <DependentUpon>202001071140431_ImageNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001071143137_ImageNew2.0.cs" />
+    <Compile Include="Migrations\202001071143137_ImageNew2.0.Designer.cs">
+      <DependentUpon>202001071143137_ImageNew2.0.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\ExampleUser.cs" />
     <Compile Include="Models\Friend.cs" />
     <Compile Include="Models\FriendRequest.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Interest.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Message.cs" />
@@ -221,6 +239,7 @@
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\AppDbContext.cs" />
     <Compile Include="Models\ProfilePageViewModels.cs" />
+    <Compile Include="Models\ProfileView.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -335,7 +354,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Profile\CreateMessage.cshtml" />
     <Content Include="Views\Account\RegisterProfile.cshtml" />
-    <Content Include="Views\Shared\_SearchUser.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
@@ -375,6 +393,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001032015082_3.resx">
       <DependentUpon>202001032015082_3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001071125009_ProfileView_and_Image.resx">
+      <DependentUpon>202001071125009_ProfileView_and_Image.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001071128493_Image.resx">
+      <DependentUpon>202001071128493_Image.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001071140431_ImageNew.resx">
+      <DependentUpon>202001071140431_ImageNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001071143137_ImageNew2.0.resx">
+      <DependentUpon>202001071143137_ImageNew2.0.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

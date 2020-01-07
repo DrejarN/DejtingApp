@@ -40,5 +40,13 @@ namespace DejtingApp.Models
 
         [InverseProperty("Reciever")]
         public ICollection<Message> Recievers3 { get; set; }
+
+        [InverseProperty("Sender")]
+        public ICollection<ProfileView> Senders4 { get; set; }
+
+        [InverseProperty("Reciever")]
+        public ICollection<ProfileView> Receiever4 { get; set; }
+
+
     }
 }

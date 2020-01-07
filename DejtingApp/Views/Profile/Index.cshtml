@@ -77,6 +77,7 @@
             @foreach (var dud in Model.Profiles)
             {
                 <input type="submit" class="btn-success" value="View friend list" onclick="location.href='@Url.Action("ViewFriendList", "Profile", new { @dud.ProfileId })'" />
+                <input type="submit" class="btn-success" value="Edit profile" onclick="location.href='@Url.Action("Edit", "Profile", new { id = dud.ProfileId }, null)'" />
             }
         </div>
     </div>

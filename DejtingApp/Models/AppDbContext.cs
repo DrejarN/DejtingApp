@@ -17,6 +17,8 @@ namespace DejtingApp.Models
         public DbSet<FriendRequest> FriendRequests { get; set; }
         public DbSet<Friend> Friends { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<ProfileView> ProfileViews { get; set; }
 
 
 

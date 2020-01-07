@@ -208,6 +208,18 @@
     <Compile Include="Migrations\202001032015082_3.Designer.cs">
       <DependentUpon>202001032015082_3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001071125009_ProfileView_and_Image.cs" />
+    <Compile Include="Migrations\202001071125009_ProfileView_and_Image.Designer.cs">
+      <DependentUpon>202001071125009_ProfileView_and_Image.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001071128493_Image.cs" />
+    <Compile Include="Migrations\202001071128493_Image.Designer.cs">
+      <DependentUpon>202001071128493_Image.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001071140431_ImageNew.cs" />
+    <Compile Include="Migrations\202001071140431_ImageNew.Designer.cs">
+      <DependentUpon>202001071140431_ImageNew.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -377,6 +389,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001032015082_3.resx">
       <DependentUpon>202001032015082_3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001071125009_ProfileView_and_Image.resx">
+      <DependentUpon>202001071125009_ProfileView_and_Image.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001071128493_Image.resx">
+      <DependentUpon>202001071128493_Image.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001071140431_ImageNew.resx">
+      <DependentUpon>202001071140431_ImageNew.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

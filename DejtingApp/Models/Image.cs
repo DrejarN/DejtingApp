@@ -16,7 +16,7 @@ namespace DejtingApp.Models
         public string ImageName { get; set; }
 
         [DisplayName("Upload Profile Picture")]
-        public string ImagePath { get; set; }
+        public string ImgPath { get; set; }
 
         [NotMapped]
         public HttpPostedFileBase ImageFile { get; set; }

@@ -13,11 +13,14 @@ namespace DejtingApp.Models
         public List<Friend> Friends { get; set; }
     }
 
-    //public class ProfilePageIndexViewModel
-    //{
-    //    public List<Profile> profiles { get; set; }
-    //    public List<Message> Messages { get; set; }
-    //    public List<Friend> Friends { get; set; }
-
-    //}
+    public class FriendListViewModel
+    {
+        public int ProfileId { get; set; }
+        public string ImagePath { get; set; }
+        public string Förnamn { get; set; }
+        public string Efternamn { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
+        public List<Category> Categories { get; set; }
+    }
 }

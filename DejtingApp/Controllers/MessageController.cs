@@ -1,41 +1,48 @@
-﻿using DejtingApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using DejtingApp.Models;
 
 namespace DejtingApp.Controllers
 {
-    public class MessageController : Controller
+    public class MessageController : ApiController
     {
         AppDbContext ctx = new AppDbContext();
+        public List<Message> lista = new List<Message>();
 
-        // GET: Message
-        public ActionResult Index()
+        [HttpGet]
+        public IEnumerable<Message> GetAllMessages(int id)
         {
-            return View();
+            lista = ctx.Messages.Where(o => o.RecieverId == id).ToList();
+            return lista;
         }
 
-        // CREATE: Message
-
-        [HttpPost]
-        public ActionResult createMessage(Message msg)
+        public IHttpActionResult GetMessage(int id)
         {
-            ctx.Messages.Add(msg);
-            ctx.SaveChanges();
-            string message = "SUCCESS";
-            return Json(new { Message = message, JsonRequestBehavior.AllowGet });
+            var product = lista.FirstOrDefault((p) => p.RecieverId == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return Ok(product);
         }
 
-
-        // GET: MessageJson
-
-        public JsonResult getMessage(string id)
+        public void PostMessage(Message message)
         {
-            List<Message> messages = new List<Message>();
-            messages = ctx.Messages.ToList();
-            return Json(messages, JsonRequestBehavior.AllowGet);
+
+            using (var db = new AppDbContext())
+            {
+                DateTime now = DateTime.Now;
+                var from = db.Profiles.Single(u => u.ProfileId == message.SenderId).ProfileId;
+                var to = db.Profiles.FirstOrDefault(u => u.ProfileId == message.RecieverId).ProfileId;
+                var newMessage = new Message() { MessageText = message.MessageText, MessageCreated = now, SenderId = from, RecieverId = to };
+                db.Messages.Add(newMessage);
+                db.SaveChanges();
+            }
         }
+
     }
 }

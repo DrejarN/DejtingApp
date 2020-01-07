@@ -41,16 +41,18 @@
             @Html.DisplayFor(modelItem => item.CategoryName)
         </td>
         <td>
-            @foreach()
+            <td>
+                @Html.DisplayFor(modelItem => item.Categories)
+            </td>
 
             @*@Html.DropDownListFor(modelItem => item.CategoryId,
            new SelectList(item.CategoryName))*@
 
-            <select class="form-control" id="categoryId">
+            <@*select class="form-control" id="categoryId">
                 <option>Change status</option>
                 <option>Dejting</option>
                 <option>Just friends</option>
-            </select>
+            </select>*@
 
 
            

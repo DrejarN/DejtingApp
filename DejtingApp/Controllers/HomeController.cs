@@ -58,7 +58,7 @@ namespace DejtingApp.Controllers
         public ActionResult Search(string input)
         {
             var ctx = new AppDbContext();
-            var results = ctx.Profiles.Where(u => u.Förnamn.Contains(input)).ToList(); //&& ctx.Profiles.Where(z => z.Active.Equals(true))
+            var results = ctx.Profiles.Where(u => u.Förnamn.Contains(input) && u.Active == true).ToList(); //&& ctx.Profiles.Where(z => z.Active.Equals(true))
 
             return View(results);
         }

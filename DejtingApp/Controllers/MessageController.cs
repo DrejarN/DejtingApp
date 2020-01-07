@@ -36,9 +36,9 @@ namespace DejtingApp.Controllers
             using (var db = new AppDbContext())
             {
                 DateTime now = DateTime.Now;
-                var from = db.Profiles.Single(u => u.ProfileId == message.SenderId).ProfileId;
-                var to = db.Profiles.FirstOrDefault(u => u.ProfileId == message.RecieverId).ProfileId;
-                var newMessage = new Message() { MessageText = message.MessageText, MessageCreated = now, SenderId = from, RecieverId = to };
+                //var from = db.Users.Single(u => u.Id == message.SenderId);
+                //var to = db.Profiles.FirstOrDefault(u => u.ProfileId == message.RecieverId).ProfileId;
+                var newMessage = new Message() { MessageText = message.MessageText, MessageCreated = now, SenderId = message.SenderId, RecieverId = message.RecieverId };
                 db.Messages.Add(newMessage);
                 db.SaveChanges();
             }

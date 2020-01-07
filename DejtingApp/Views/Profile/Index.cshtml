@@ -1,9 +1,11 @@
 ﻿@using DejtingApp.Models
+@using Microsoft.AspNet.Identity
 
 @model  DejtingApp.Models.ProfilePageViewModels
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -58,6 +60,7 @@
         <div class="col-md-8">
             @*En submit knapp för att skriva på wallen *@
             <br />
+            <input id="Text" />
             <input type="button" value="Send message!" class="btn-large btn-primary" id="sendMessage" /> @* AJAX call ska peka på '#sendMessage'*@
         </div>
     </div>
@@ -69,10 +72,43 @@
                 <p class="list-group-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
             }
         </div>
-        <div class="col-md-8"> @*SHow friend list?*@
-        @foreach (var dud in Model.Profiles) {
-            <input type="submit" class="btn-success" value="View friend list" onclick="location.href='@Url.Action("ViewFriendList", "Profile", new { @dud.ProfileId })'" />
-        }
+        <div class="col-md-8">
+            @*SHow friend list?*@
+            @foreach (var dud in Model.Profiles)
+            {
+                <input type="submit" class="btn-success" value="View friend list" onclick="location.href='@Url.Action("ViewFriendList", "Profile", new { @dud.ProfileId })'" />
+            }
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script type="text/javascript">
+    $("#sendMessage").click(function () {
+        var request = new Message {
+            MessageText = $("#Text").val(),
+            MessageCreated = "2019-02-01",
+            SenderID = "@User.Identity.GetUserId()",
+            RecieverID = "@User.Identity.GetUserId()"
+        }
+        $.ajax({
+            url: "/api/Message/PostMessage",
+            datatype: 'json',
+            contentType: "application/json",
+            type: "POST",
+            data: JSON.stringify(request),
+            success: function (response) {
+                $("#Text").val("");
+            }
+        })});
+        //function MessageModel() {
+        //    var self = this;
+        //    self.MessageText = $("#Text").val();
+        //    self.MessageCreated = "2019-02-01";
+        //    self.SenderID = "2";
+        //    self.RecieverID = "3";
+        //}
+
+
+    </script>
+}

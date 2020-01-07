@@ -214,6 +214,7 @@
     <Compile Include="Models\Friend.cs" />
     <Compile Include="Models\FriendRequest.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Interest.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Message.cs" />
@@ -221,6 +222,7 @@
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\AppDbContext.cs" />
     <Compile Include="Models\ProfilePageViewModels.cs" />
+    <Compile Include="Models\ProfileView.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -335,7 +337,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Profile\CreateMessage.cshtml" />
     <Content Include="Views\Account\RegisterProfile.cshtml" />
-    <Content Include="Views\Shared\_SearchUser.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />

@@ -70,8 +70,8 @@ namespace DejtingApp.Controllers
                               Förnamn = Profile.Förnamn,
                               Efternamn = Profile.Efternamn,
                               CategoryId = Category.CategoryId,
-                              CategoryName = Category.CategoryName
-                              
+                              CategoryName = Category.CategoryName,
+                              Categories = ctx.Categories.ToList()
 
                           }).ToList();
 

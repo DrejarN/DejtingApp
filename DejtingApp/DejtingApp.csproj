@@ -188,41 +188,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202001031316428_Interest.cs" />
-    <Compile Include="Migrations\202001031316428_Interest.Designer.cs">
-      <DependentUpon>202001031316428_Interest.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001031812233_Final.cs" />
-    <Compile Include="Migrations\202001031812233_Final.Designer.cs">
-      <DependentUpon>202001031812233_Final.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001032009005_1.cs" />
-    <Compile Include="Migrations\202001032009005_1.Designer.cs">
-      <DependentUpon>202001032009005_1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001032010215_2.cs" />
-    <Compile Include="Migrations\202001032010215_2.Designer.cs">
-      <DependentUpon>202001032010215_2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001032015082_3.cs" />
-    <Compile Include="Migrations\202001032015082_3.Designer.cs">
-      <DependentUpon>202001032015082_3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001071125009_ProfileView_and_Image.cs" />
-    <Compile Include="Migrations\202001071125009_ProfileView_and_Image.Designer.cs">
-      <DependentUpon>202001071125009_ProfileView_and_Image.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001071128493_Image.cs" />
-    <Compile Include="Migrations\202001071128493_Image.Designer.cs">
-      <DependentUpon>202001071128493_Image.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001071140431_ImageNew.cs" />
-    <Compile Include="Migrations\202001071140431_ImageNew.Designer.cs">
-      <DependentUpon>202001071140431_ImageNew.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001071143137_ImageNew2.0.cs" />
-    <Compile Include="Migrations\202001071143137_ImageNew2.0.Designer.cs">
-      <DependentUpon>202001071143137_ImageNew2.0.cs</DependentUpon>
+    <Compile Include="Migrations\202001080925224_Initial.cs" />
+    <Compile Include="Migrations\202001080925224_Initial.Designer.cs">
+      <DependentUpon>202001080925224_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -382,32 +350,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202001031316428_Interest.resx">
-      <DependentUpon>202001031316428_Interest.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001031812233_Final.resx">
-      <DependentUpon>202001031812233_Final.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001032009005_1.resx">
-      <DependentUpon>202001032009005_1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001032010215_2.resx">
-      <DependentUpon>202001032010215_2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001032015082_3.resx">
-      <DependentUpon>202001032015082_3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001071125009_ProfileView_and_Image.resx">
-      <DependentUpon>202001071125009_ProfileView_and_Image.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001071128493_Image.resx">
-      <DependentUpon>202001071128493_Image.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001071140431_ImageNew.resx">
-      <DependentUpon>202001071140431_ImageNew.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001071143137_ImageNew2.0.resx">
-      <DependentUpon>202001071143137_ImageNew2.0.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001080925224_Initial.resx">
+      <DependentUpon>202001080925224_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

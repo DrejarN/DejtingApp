@@ -90,10 +90,12 @@
                 console.log(data)
                 for(var i=0;i<data.length;i++)
                 {
-                    var result = "<p>" + data[i].MessageText + "</p>";
-                    var namn = "<h4>" + "Exempel namn skrev:" + "</h4>";
-                    var datum = "<p>" + data[i].MessageCreated + "</p>";
-                    $("#results").append(namn + result + datum); 
+                    if (data[i].Reciever == @item.ProfileId) {
+                        var result = "<p>" + data[i].MessageText + "</p>";
+                        var namn = "<h4>" + data[i].Förnamn + " " + data[i].Efternamn + "</h4>";
+                        var datum = "<p>" + data[i].Datum + "</p>";
+                        $("#results").append(namn + result + datum);
+                    }
                 }
             });
         }

@@ -11,6 +11,6 @@ namespace DejtingApp.Models
         public string Förnamn { get; set; }
         public string Efternamn { get; set; }
         public DateTime Datum { get; set; }
-        public int Reciever { get; set; }
+        public int? Reciever { get; set; }
     }
 }

@@ -227,7 +227,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\ExampleUser.cs" />
+    <Compile Include="Models\ExampleUserViewModel.cs" />
     <Compile Include="Models\Friend.cs" />
     <Compile Include="Models\FriendRequest.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -361,6 +361,7 @@
     <Content Include="Views\Profile\Profilepage.cshtml" />
     <Content Include="Views\Profile\ViewFriendList.cshtml" />
     <Content Include="Views\Account\ViewFriendRequest.cshtml" />
+    <Content Include="Views\Home\ExampleUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

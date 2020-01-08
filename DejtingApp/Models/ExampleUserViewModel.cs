@@ -6,7 +6,7 @@ using System.Web;
 
 namespace DejtingApp.Models
 {
-    public class ExampleUser
+    public class ExampleUserViewModel
     {
         
         [Display(Name = "Bild")]

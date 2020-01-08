@@ -43,6 +43,9 @@ Generated\ Files/
 *.VisualState.xml
 TestResult.xml
 
+# Web.config
+Web.config
+
 # Build Results of an ATL Project
 [Dd]ebugPS/
 [Rr]eleasePS/
@@ -247,6 +250,8 @@ ServiceFabricBackup/
 
 # SQL Server files
 *.ndf
+*.mdf
+*.log
 
 # Business Intelligence projects
 *.rdl.data

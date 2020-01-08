@@ -66,14 +66,15 @@ namespace DejtingApp.Controllers
         public ActionResult ExampleUser()
         {
             var ctx = new AppDbContext();
-            var results = ctx.Profiles.ToList(); 
-            if (User.Identity.GetUserId() == null) {
+            var results = ctx.Profiles.ToList();
+            var first = results[0];
+            /*if (User.Identity.GetUserId() == null) {
                 return RedirectToAction("Register", "Account");
             }
 
-            else { 
-            return View(results);
-            }
+            else {*/ 
+            return View(first);
+            //}
         }
     }
 }

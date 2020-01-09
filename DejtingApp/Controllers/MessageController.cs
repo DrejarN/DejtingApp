@@ -58,5 +58,16 @@ namespace DejtingApp.Controllers
             }
         }
 
+        [HttpPost]
+        public void TickProfileViewCount(int SendClickId, int RecieveClickId)
+        {
+            using (var ctx = new AppDbContext()) 
+            {
+            ProfileView profileView = new ProfileView() { RecieveClickId = RecieveClickId, SendClickId = SendClickId };
+            ctx.ProfileViews.Add(profileView);
+            ctx.SaveChanges();
+            }
+        }
+
     }
 }

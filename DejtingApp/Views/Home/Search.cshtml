@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<DejtingApp.Models.Profile>
 
+@using DejtingApp.Models
+@using Microsoft.AspNet.Identity
+
 @{
     ViewBag.Title = "Search";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -31,7 +34,14 @@
                 <img src="@item.ImagePath" height="100" width="100" />
             </td>
             <td>
-                @Html.ActionLink(item.Förnamn, "Profilepage", "Profile", new { @item.ProfileId }, null)
+                @using (var ctx = new AppDbContext())
+                {
+                    var currentUserIdString = User.Identity.GetUserId();
+                    var profil = ctx.Profiles.FirstOrDefault(o => o.ApplicationUser == currentUserIdString);
+                    int? currentUserId = profil.ProfileId;
+
+                    @Html.ActionLink(item.Förnamn, "Profilepage", "Profile", new { @item.ProfileId, currentUserId }, null)
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Efternamn)
@@ -45,55 +55,55 @@
                     @Html.DisplayFor(modelItem => date);
                 }
             </td>
-        <td>
-            @*<button type="submit" onclick="return AddFriend(@item.ProfileId);">Send friend request</button>
-        <script type="text/javascript">
-            function AddToCart() {
-                $.ajax({ url: "AddFriend", success: function () { alert("Success"); } }); return false;
-            }</script>*@
+            <td>
+                @*<button type="submit" onclick="return AddFriend(@item.ProfileId);">Send friend request</button>
+                    <script type="text/javascript">
+                        function AddToCart() {
+                            $.ajax({ url: "AddFriend", success: function () { alert("Success"); } }); return false;
+                        }</script>*@
 
-            @*<button id="test" class="btn-success">Send friend request</button>*@
+                @*<button id="test" class="btn-success">Send friend request</button>*@
 
-            <input type="submit" class="btn-success" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { @item.ProfileId })'" />
+                <input type="submit" class="btn-success" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { @item.ProfileId })'" />
 
 
-       
 
-            @*<input type="button" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { id = item.ProfileId })'" />*@
 
-            @*<div id="target">
-            @using (Ajax.BeginForm("AddFriend", "Home", new AjaxOptions
-            {
-                OnSuccess = "OnSuccess",
-                OnFailure = "OnFailure",
-                InsertionMode = InsertionMode.Replace,
-                UpdateTargetId = "target",
-                HttpMethod = "POST",
+                @*<input type="button" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { id = item.ProfileId })'" />*@
 
-            }))
+                @*<div id="target">
+                        @using (Ajax.BeginForm("AddFriend", "Home", new AjaxOptions
+                        {
+                            OnSuccess = "OnSuccess",
+                            OnFailure = "OnFailure",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "target",
+                            HttpMethod = "POST",
 
-            {
-                <input type="submit" value="Send friend request" />
-                <input type="submit" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { id = item.ProfileId })'" />
-                <button class="btn-success" value="@item.ProfileId" onclick="return AddFriend(@item.ProfileId)">Send friend request</button>
+                        }))
 
-                <script type="text/javascript">
-                    function AddFriend() {
-                        $.ajax({ url: "AddFriend", success: function () { alert("Success"); } }); return false;
-                    };
-                </script>
+                        {
+                            <input type="submit" value="Send friend request" />
+                            <input type="submit" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { id = item.ProfileId })'" />
+                            <button class="btn-success" value="@item.ProfileId" onclick="return AddFriend(@item.ProfileId)">Send friend request</button>
 
-                <script type="text/javascript">
-                    function OnSuccess() {
-                        alert("Friend request sent")
-                    };
-                    function OnFailure() {
-                        alert("Error occured.");
-                    };
-                </script>
-            }
-        </div>*@
-        </td>
+                            <script type="text/javascript">
+                                function AddFriend() {
+                                    $.ajax({ url: "AddFriend", success: function () { alert("Success"); } }); return false;
+                                };
+                            </script>
+
+                            <script type="text/javascript">
+                                function OnSuccess() {
+                                    alert("Friend request sent")
+                                };
+                                function OnFailure() {
+                                    alert("Error occured.");
+                                };
+                            </script>
+                        }
+                    </div>*@
+            </td>
             <td>
                 @*@{
                     @Html.ActionLink("Send friend request", "AddFriend", null, new { profileId = item.ProfileId })
@@ -123,5 +133,5 @@
 
 @*<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
 
-    
+
 

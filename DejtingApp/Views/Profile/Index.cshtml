@@ -1,13 +1,13 @@
 ﻿@using DejtingApp.Models
 @using Microsoft.AspNet.Identity
 
+
 @model  DejtingApp.Models.ProfilePageViewModels
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 <div class="container" style="margin-top: 30px">
     <div class="row">
@@ -89,9 +89,10 @@
     </div>
 </div>
 @foreach (var item in Model.Profiles)
-{
+{     
     @section scripts {
         <script type="text/javascript">
+
    $(document).ready(function() {
             getNew();
         });
@@ -104,11 +105,35 @@
                         var result = "<p>" + data[i].MessageText + "</p>";
                         var namn = "<h4>" + data[i].Förnamn + " " + data[i].Efternamn + "</h4>";
                         var datum = "<p>" + data[i].Datum + "</p>";
-                        $("#results").append(namn + result + datum);
+                        var button = '<button id="deleteRecord" data-model-id="' + data[i].MessageID + '">delete</button>';
+                        $("#results").append(namn + result + datum + button);
                     }
                 }
             });
-        }
+            }
+
+            $(document).on('click', '#deleteRecord', function (e) {
+                                e.preventDefault();
+                var dialog = $('<p>Are you sure?</p>').dialog({
+                    buttons: {
+                        "Yes": function() { var MessageId = $(this).data("model-id");
+                console.log(MessageId);
+                var url = "/Profile/DeleteMessage/" + MessageId;
+                console.log(url);
+                $.ajax({
+                    url: url,
+                    datatype: 'json',
+                    contentType: "application/json",
+                    type: 'POST',
+                    data: JSON.stringify(MessageId),
+                }).done(function () {
+                    alert("Deleted")
+                    getNew();
+                });},
+                        "No":  function() {dialog.dialog('close');}
+                    }
+                });
+        });
 
             $("#sendMessage").click(function () {
                 $("#results").html("")

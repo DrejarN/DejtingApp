@@ -38,7 +38,17 @@ namespace DejtingApp.Controllers
         }
 
         // Get: OtherProfile
-
+        [HttpPost]
+        public void DeleteMessage(int id)
+        {
+            using (var db = new AppDbContext())
+            {
+                var result = db.Messages.ToList();
+                var message = result.FirstOrDefault(o => o.MessageId == id);
+                db.Messages.Remove(message);
+                db.SaveChanges();
+            }
+        }
         public ActionResult Profilepage(int profileId)
         {
             var ctx = new AppDbContext();

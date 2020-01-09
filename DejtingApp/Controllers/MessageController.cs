@@ -21,6 +21,7 @@ namespace DejtingApp.Controllers
                               orderby Message.MessageCreated descending
                               select new MessageViewModel
                               {
+                                  MessageID = Message.MessageId,
                                   MessageText = Message.MessageText,
                                   Förnamn = Profile.Förnamn,
                                   Efternamn = Profile.Efternamn,
@@ -41,6 +42,18 @@ namespace DejtingApp.Controllers
                 DateTime now = DateTime.Now;
                 var newMessage = new Message() { MessageText = message.MessageText, MessageCreated = now, SenderId = profil.ProfileId, RecieverId = message.RecieverId };
                 db.Messages.Add(newMessage);
+                db.SaveChanges();
+            }
+        }
+       
+        [HttpPost]
+        public void Delete(int id)
+        {
+            using (var db = new AppDbContext())
+            {
+                var result = db.Messages.ToList();
+                var message = result.FirstOrDefault(o => o.MessageId == id);
+                db.Messages.Remove(message);
                 db.SaveChanges();
             }
         }

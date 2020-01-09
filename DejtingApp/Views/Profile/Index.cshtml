@@ -76,7 +76,13 @@
     </div>
     <div class="row">
         <div class="col-md-3">
-            @*Whitespace*@
+            <h4>Intressen :</h4>
+            <div style="float: left">
+                @foreach (var item in Model.Interests)
+                {
+                    <p style="border: 1px solid; border-radius: 2.5px;">@item.InterestName</p>
+                }
+            </div>
         </div>
         <div class="col-md-5">
             @*SHow friend list?*@
@@ -84,7 +90,6 @@
             {
                 <input type="submit" class="btn-success" value="View friend list" onclick="location.href='@Url.Action("ViewFriendList", "Profile", new { @dud.ProfileId })'" />
                 <input type="submit" class="btn-success" value="Edit profile" onclick="location.href='@Url.Action("Edit", "Profile", new { id = dud.ProfileId }, null)'" />
-                <input type="button" value="Save" id="save" />
             }
         </div>
         <div class="col-md-4">

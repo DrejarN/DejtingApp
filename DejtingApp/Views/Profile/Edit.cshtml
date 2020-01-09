@@ -1,4 +1,4 @@
-﻿@model DejtingApp.Models.Profile
+﻿@model DejtingApp.Models.EditViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Profile</h4>
         <hr />
@@ -58,10 +58,8 @@
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
-
-
-
-
+        <input type="submit" class="btn-success" value="Edit interests" onclick="location.href='@Url.Action("EditInterests", "Profile")'" />
+        <a class="button" href='@Url.Action("EditInterests", "Profile")' />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -69,7 +67,7 @@
         </div>
     </div>
 }
-
+<input type="submit" class="btn-success" value="Edit interests" onclick="location.href='@Url.Action("EditInterests", "Profile")'" />
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

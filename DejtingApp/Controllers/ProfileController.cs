@@ -33,8 +33,34 @@ namespace DejtingApp.Controllers
             viewModel.Profiles = ctx.Profiles.Where(x => x.ProfileId == id).ToList();
             viewModel.Messages = ctx.Messages.Where(o => o.RecieverId == id).ToList();
             viewModel.Friends = ctx.Friends.Where(f => f.RecieverId == id).ToList();
+            viewModel.Interests = ctx.Interests.Where(i => i.ProfileId == id).ToList();
 
             return View(viewModel);
+        }
+
+        public ActionResult DeleteInterest(int id)
+        {
+            var db = new AppDbContext();
+            var interest = db.Interests.FirstOrDefault(x => x.InterestId == id);
+            db.Interests.Remove(interest);
+            db.SaveChanges();
+            return RedirectToAction("EditInterests");
+
+        }
+
+        [HttpPost]
+        public ActionResult CreateNewInterest()
+        {
+            var db = new AppDbContext();
+            int id = getUser();
+            var interest = new Interest
+            {
+                InterestName = Request["Text"],
+                ProfileId = id
+            };
+            db.Interests.Add(interest);
+            db.SaveChanges();
+            return RedirectToAction("EditInterests");
         }
 
         // Get: OtherProfile
@@ -58,6 +84,7 @@ namespace DejtingApp.Controllers
             viewModel.Profiles = ctx.Profiles.Where(x => x.ProfileId == profileId).ToList();
             viewModel.Messages = ctx.Messages.Where(o => o.RecieverId == profileId).ToList();
             viewModel.Friends = ctx.Friends.Where(f => f.RecieverId == profileId).ToList();
+            viewModel.Interests = ctx.Interests.Where(i => i.ProfileId == profileId).ToList();
 
             return View(viewModel);
         }
@@ -89,12 +116,32 @@ namespace DejtingApp.Controllers
             return View(result);
         }
 
+        public ActionResult EditInterests()
+        {
+            int id = getUser();
+            AppDbContext ctx = new AppDbContext();
+            var result = ctx.Interests.Where(x => x.ProfileId == id).ToList();
+            return View(result);
+        }
+
+
+
         [HttpGet]
         public ActionResult Edit(int id)
         {
             using (AppDbContext dbModel = new AppDbContext())
             {
-                return View(dbModel.Profiles.Where(x => x.ProfileId == id).FirstOrDefault());
+                var profil = dbModel.Profiles.SingleOrDefault(x => x.ProfileId == id);
+                var result = new EditViewModel
+                {
+                    Förnamn = profil.Förnamn,
+                    Efternamn = profil.Efternamn,
+                    Födelseår = profil.Födelseår,
+                    Active = profil.Active,
+                    Description = profil.Description,
+                    Interests = dbModel.Interests.Where(x => x.ProfileId == id).ToList()
+                };
+                return View(result);
             }
         }
 

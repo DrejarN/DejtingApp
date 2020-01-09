@@ -13,6 +13,7 @@ namespace DejtingApp.Models
         public List<Message> Messages { get; set; }
         public List<Friend> Friends { get; set; }
         public List<ProfileView> ProfileViews { get; set; }
+        public List<Interest> Interests { get; set; }
     }
 
     public class FriendListViewModel
@@ -24,6 +25,18 @@ namespace DejtingApp.Models
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public List<Category> Categories { get; set; }
+
+    }
+
+    public class EditViewModel
+    {
+        public int ProfileId { get; set; }
+        public string Förnamn { get; set; }
+        public string Efternamn { get; set; }
+        public DateTime Födelseår { get; set; }
+        public bool Active { get; set; }
+        public string Description { get; set; }
+        public List<Interest> Interests { get; set; }
 
     }
 

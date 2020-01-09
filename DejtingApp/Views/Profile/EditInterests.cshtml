@@ -1,0 +1,42 @@
+﻿@model IEnumerable<DejtingApp.Models.Interest>
+
+@{
+    ViewBag.Title = "EditInterests";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>EditInterests</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.TextBox("Text")
+        <input type="text" id="Text" name="Text" />
+        <input type="button" value="Send message!" class="btn-large btn-primary" onclick="location.href='@Url.Action("CreateNewInterest", "Profile")'" />
+    </div>
+}
+
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.InterestName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InterestName)
+            </td>
+            <td>
+                @Html.ActionLink("Delete Interest", "DeleteInterest", "Profile", new { id = item.InterestId }, null)
+            </td>
+        </tr>
+    }
+
+</table>

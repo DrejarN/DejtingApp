@@ -46,28 +46,5 @@ namespace DejtingApp.Controllers
             }
         }
        
-        [HttpPost]
-        public void Delete(int id)
-        {
-            using (var db = new AppDbContext())
-            {
-                var result = db.Messages.ToList();
-                var message = result.FirstOrDefault(o => o.MessageId == id);
-                db.Messages.Remove(message);
-                db.SaveChanges();
-            }
-        }
-
-        [HttpPost]
-        public void TickProfileViewCount(int SendClickId, int RecieveClickId)
-        {
-            using (var ctx = new AppDbContext()) 
-            {
-            ProfileView profileView = new ProfileView() { RecieveClickId = RecieveClickId, SendClickId = SendClickId };
-            ctx.ProfileViews.Add(profileView);
-            ctx.SaveChanges();
-            }
-        }
-
     }
 }

@@ -2,12 +2,15 @@
 @using Microsoft.AspNet.Identity
 
 
+
+
 @model  DejtingApp.Models.ProfilePageViewModels
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 <div class="container" style="margin-top: 30px">
     <div class="row">
@@ -82,41 +85,89 @@
             {
                 <input type="submit" class="btn-success" value="View friend list" onclick="location.href='@Url.Action("ViewFriendList", "Profile", new { @dud.ProfileId })'" />
                 <input type="submit" class="btn-success" value="Edit profile" onclick="location.href='@Url.Action("Edit", "Profile", new { id = dud.ProfileId }, null)'" />
+                <input type="button" value="Save" id="save" />
             }
         </div>
         <div class="col-md-4">
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title" id="myModalLabel">Warning!</h3>
+
+            </div>
+            <div class="modal-body">
+                <h4>Are you sure you want to DELETE?</h4>
+
+            </div>
+            <!--/modal-body-collapse -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btnDelteYes" href="#">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            </div>
+            <!--/modal-footer-collapse -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 @foreach (var item in Model.Profiles)
-{     
+{
     @section scripts {
         <script type="text/javascript">
 
-   $(document).ready(function() {
+        $(document).ready(function() {
             getNew();
         });
+
         function getNew() {
             $.ajax("/api/Message/lista").then(function (data) {
-                console.log(data)
+                $("#Text").val("");
                 for(var i=0;i<data.length;i++)
                 {
                     if (data[i].Reciever == @item.ProfileId) {
                         var result = "<p>" + data[i].MessageText + "</p>";
                         var namn = "<h4>" + data[i].Förnamn + " " + data[i].Efternamn + "</h4>";
                         var datum = "<p>" + data[i].Datum + "</p>";
-                        var button = '<button id="deleteRecord" data-model-id="' + data[i].MessageID + '">delete</button>';
+                        var button = '<button class="btn btnDelete" data-model-id="' + data[i].MessageID + '">delete</button>';
                         $("#results").append(namn + result + datum + button);
                     }
                 }
             });
             }
 
-            $(document).on('click', '#deleteRecord', function (e) {
-                                e.preventDefault();
-                var dialog = $('<p>Are you sure?</p>').dialog({
-                    buttons: {
-                        "Yes": function() { var MessageId = $(this).data("model-id");
+            //$(document).on('click', '#deleteRecord', function (e) {
+            //    var MessageId = $(this).data("model-id");
+            //    console.log(MessageId);
+            //    var url = "/Profile/DeleteMessage/" + MessageId;
+            //    console.log(url);
+            //    $.ajax({
+            //        url: url,
+            //        datatype: 'json',
+            //        contentType: "application/json",
+            //        type: 'POST',
+            //        data: JSON.stringify(MessageId),
+            //    }).done(function () {
+            //        getNew();
+            //    });
+            //});
+
+
+             $(document).on('click', '.btn.btnDelete', function (e) {
+            e.preventDefault();
+            var id = $(this).closest('button').data('model-id');
+                 $('#myModal').data('model-id', id).modal('show');
+                 console.log(id);
+        });
+
+        $('#btnDelteYes').click(function () {
+             var MessageId = $('#myModal').data("model-id");
                 console.log(MessageId);
                 var url = "/Profile/DeleteMessage/" + MessageId;
                 console.log(url);
@@ -127,13 +178,12 @@
                     type: 'POST',
                     data: JSON.stringify(MessageId),
                 }).done(function () {
-                    alert("Deleted")
+                    $("#Text").val(""),
                     getNew();
-                });},
-                        "No":  function() {dialog.dialog('close');}
-                    }
                 });
+            $('#myModal').modal('hide');
         });
+
 
             $("#sendMessage").click(function () {
                 $("#results").html("")
@@ -145,11 +195,9 @@
                     type: "POST",
                     data: JSON.stringify(request),
                     success: function (response) {
-                        $("#Text").val("");
                         getNew();
                     }
-
-                })
+                });
             });
             function MessageModel() {
                 var self = this;

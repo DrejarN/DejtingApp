@@ -33,6 +33,8 @@ namespace DejtingApp.Controllers
             viewModel.Profiles = ctx.Profiles.Where(x => x.ProfileId == id).ToList();
             viewModel.Messages = ctx.Messages.Where(o => o.RecieverId == id).ToList();
             viewModel.Friends = ctx.Friends.Where(f => f.RecieverId == id).ToList();
+            viewModel.ProfileViews = ctx.ProfileViews.Where(v => v.RecieveClickId == id).OrderByDescending(v => v.SendClickId).Distinct(v => v.SendClickId).Take(5).ToList(); //OrderByDesc kanske ska filtrera på Recieveclicks?
+            viewModel.ProfileViews = ctx.ProfileViews.Where(v => v.RecieveClickId == id).OrderByDescending(v => v.SendClickId).Distinct().Take(5).ToList();
 
             return View(viewModel);
         }

@@ -7,6 +7,7 @@ namespace DejtingApp.Models
 {
     public class MessageViewModel
     {
+        public int MessageID { get; set; }
         public string MessageText { get; set; }
         public string Förnamn { get; set; }
         public string Efternamn { get; set; }

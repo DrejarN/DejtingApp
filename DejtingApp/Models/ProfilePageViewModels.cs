@@ -24,4 +24,11 @@ namespace DejtingApp.Models
         public string CategoryName { get; set; }
         public List<Category> Categories { get; set; }
     }
+
+    public class ViewsListViewModel
+    {
+        public string Förnamn { get; set; }
+        public string Efternamn { get; set; }
+
+    }
 }

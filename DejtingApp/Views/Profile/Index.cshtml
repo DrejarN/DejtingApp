@@ -36,15 +36,14 @@
         }
         <div class="col-md-5" style="border-color: black; max-height: 320px;">
             @*List of messages*@
-
-            @foreach (var item in Model.Messages)
-            {
                 <div class="list-group" id="results" style="max-height: 300px; overflow-y: auto">
                 </div>
-            }
+
         </div>
         <div class="col-md-4">
-
+            <div class="list-group" id="viewResults" style="max-height: 300px; overflow-y: auto">
+                <h4>These people checked you out ;)</h4>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -123,8 +122,23 @@
         <script type="text/javascript">
 
         $(document).ready(function() {
-            getNew();
+            getNew(),
+            getViews();
         });
+
+            
+            function getViews() {
+            $.ajax("/api/ProfileView/Viewslista").then(function (data) {
+                console.log(data)
+                var nmr = 1;
+                for (var i = 0; i < data.length; i++)
+                {
+                    var result = "<p>" + nmr + " " + data[i].Förnamn + " " + data[i].Efternamn + "</p>";
+                    $("#viewResults").append(result);
+                    nmr++;
+                }
+            });
+        }
 
         function getNew() {
             $.ajax("/api/Message/lista").then(function (data) {
@@ -141,23 +155,6 @@
                 }
             });
             }
-
-            //$(document).on('click', '#deleteRecord', function (e) {
-            //    var MessageId = $(this).data("model-id");
-            //    console.log(MessageId);
-            //    var url = "/Profile/DeleteMessage/" + MessageId;
-            //    console.log(url);
-            //    $.ajax({
-            //        url: url,
-            //        datatype: 'json',
-            //        contentType: "application/json",
-            //        type: 'POST',
-            //        data: JSON.stringify(MessageId),
-            //    }).done(function () {
-            //        getNew();
-            //    });
-            //});
-
 
              $(document).on('click', '.btn.btnDelete', function (e) {
             e.preventDefault();

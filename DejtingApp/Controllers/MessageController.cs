@@ -32,6 +32,7 @@ namespace DejtingApp.Controllers
             }
         }
 
+        [HttpPost]
         public void PostMessage(Message message)
         {
 

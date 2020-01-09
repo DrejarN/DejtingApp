@@ -81,7 +81,6 @@
         });
         function getNew() {
             $.ajax("/api/Message/lista").then(function (data) {
-                console.log(data)
                 for(var i=0;i<data.length;i++)
                 {
                     if (data[i].Reciever == @item.ProfileId) {
@@ -117,8 +116,25 @@
                 self.RecieverId = @item.ProfileId;
             }
 
+            $(document).ready(function() {
+                var request = new ClickedModel()
+                $.ajax({
+                    url: "/api/ProfileView/TickProfileCount",
+                    datatype: 'json',
+                    contentType: "application/json",
+                    type: "POST",
+                    data: JSON.stringify(request),
+                    success: function (response) {
+                    }
+
+                })
+            });
 
 
+            function ClickedModel() {
+                var self = this;
+                self.RecieveClickId = @item.ProfileId;
+            }
 
 
         </script>

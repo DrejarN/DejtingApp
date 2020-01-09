@@ -33,22 +33,27 @@ namespace DejtingApp.Controllers
             viewModel.Profiles = ctx.Profiles.Where(x => x.ProfileId == id).ToList();
             viewModel.Messages = ctx.Messages.Where(o => o.RecieverId == id).ToList();
             viewModel.Friends = ctx.Friends.Where(f => f.RecieverId == id).ToList();
+            viewModel.ProfileViews = ctx.ProfileViews.Where(v => v.RecieveClickId == id).OrderByDescending(v => v.ProfileViewId).Take(5).ToList(); //OrderByDesc kanske ska filtrera på Recieveclicks?
 
             return View(viewModel);
         }
 
-        // Get: OtherProfile
+        // Get: Other profile & ticks profileViews
 
-        public ActionResult Profilepage(int profileId)
+        public ActionResult Profilepage(int profileId, int currentUserId) //currentUserId == anropare || profileId = profil vi ska till
         {
             var ctx = new AppDbContext();
-            int id = profileId; //getUser();
+
+            //Ticker för ProfileViews.
+            ProfileView profileView = new ProfileView() { RecieveClickId = profileId, SendClickId = currentUserId };
+            ctx.ProfileViews.Add(profileView);
+            ctx.SaveChanges();
 
             ProfilePageViewModels viewModel = new ProfilePageViewModels();
 
-            viewModel.Profiles = ctx.Profiles.Where(x => x.ProfileId == id).ToList();
-            viewModel.Messages = ctx.Messages.Where(o => o.RecieverId == id).ToList();
-            viewModel.Friends = ctx.Friends.Where(f => f.RecieverId == id).ToList();
+            viewModel.Profiles = ctx.Profiles.Where(x => x.ProfileId == profileId).ToList();
+            viewModel.Messages = ctx.Messages.Where(o => o.RecieverId == profileId).ToList();
+            viewModel.Friends = ctx.Friends.Where(f => f.RecieverId == profileId).ToList();
 
             return View(viewModel);
         }
@@ -78,42 +83,6 @@ namespace DejtingApp.Controllers
 
             return View(result);
         }
-
-
-
-        //[HttpGet]
-        //public ActionResult Add(int id)
-        //{
-        //    using (AppDbContext dbModel = new AppDbContext())
-        //    {
-        //        return View(dbModel.Profiles.Where(x => x.ProfileId == id).FirstOrDefault());
-        //    }
-        //}
-
-        //[HttpPost]
-        //public ActionResult Add(int id, HttpPostedFileBase file)
-        //{
-        //    if (file != null && file.ContentLength > 0)
-        //        try
-        //        {
-
-        //            using (AppDbContext dbModel = new AppDbContext())
-        //            {
-        //                var result = dbModel.Profiles.SingleOrDefault(o => o.ProfileId == id);
-        //                result.ImagePath = Path.GetFileName(file.FileName);
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            ViewBag.Message = "ERROR:" + ex.Message.ToString();
-        //        }
-        //    else
-        //    {
-        //        ViewBag.Message = "You have not specified a file.";
-        //    }
-        //    return RedirectToAction("Index");
-        //}
-
 
         [HttpGet]
         public ActionResult Edit(int id)

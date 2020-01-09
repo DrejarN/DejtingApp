@@ -34,14 +34,7 @@
                 <img src="@item.ImagePath" height="100" width="100" />
             </td>
             <td>
-                @using (var ctx = new AppDbContext())
-                {
-                    var currentUserIdString = User.Identity.GetUserId();
-                    var profil = ctx.Profiles.FirstOrDefault(o => o.ApplicationUser == currentUserIdString);
-                    int? currentUserId = profil.ProfileId;
-
-                    @Html.ActionLink(item.Förnamn, "Profilepage", "Profile", new { @item.ProfileId, currentUserId }, null)
-                }
+                    @Html.ActionLink(item.Förnamn, "Profilepage", "Profile", new { @item.ProfileId }, null)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Efternamn)
@@ -56,15 +49,8 @@
                 }
             </td>
             <td>
-                @*<button type="submit" onclick="return AddFriend(@item.ProfileId);">Send friend request</button>
-                    <script type="text/javascript">
-                        function AddToCart() {
-                            $.ajax({ url: "AddFriend", success: function () { alert("Success"); } }); return false;
-                        }</script>*@
 
-                @*<button id="test" class="btn-success">Send friend request</button>*@
-
-                <input type="submit" class="btn-success" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { @item.ProfileId })'" />
+                <input type="submit" class="btn-success" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { profileIdd = @item.ProfileId, button = "search" })'" />
 
 
 

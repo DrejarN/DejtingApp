@@ -27,45 +27,31 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            <img src="@Html.DisplayFor(modelItem => item.ImagePath)" style="width: 100px; height: 100px;" />
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Förnamn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Efternamn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryName)
-        </td>
-        <td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categories)
-            </td>
+<tr>
+    <td>
+        <img src="@Html.DisplayFor(modelItem => item.ImagePath)" style="width: 100px; height: 100px;" />
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Förnamn)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Efternamn)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CategoryName)
+    </td>
+    <td>
+        @using (Html.BeginForm("EditStatus", "Profile", new { id = @item.ProfileId }))
+        {
+            @Html.DropDownList("Category", "Select Status")
 
-            @*@Html.DropDownListFor(modelItem => item.CategoryId,
-           new SelectList(item.CategoryName))*@
-
-            <@*select class="form-control" id="categoryId">
-                <option>Change status</option>
-                <option>Dejting</option>
-                <option>Just friends</option>
-            </select>*@
-
-
-           
-
-
-            @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-        </td>
-        <td>
-            <input type="button" value="Remove friend" class="btn-danger" /> @*Funktionaliteten måste skapas.*@
-        </td>
-    </tr>
+            <input type="submit" value="Submit" class="btn-success" name="Submit"/>
+        }
+    </td>
+    <td>
+        <input type="button" value="Remove friend" class="btn-danger" /> @*Funktionaliteten måste skapas.*@
+    </td>
+</tr>
 }
 
 </table>

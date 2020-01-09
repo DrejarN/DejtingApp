@@ -39,10 +39,10 @@ namespace DejtingApp.Controllers
         }
 
         //Send friend request to user 
-        public ActionResult AddFriend(int profileId)
+        public ActionResult AddFriend(int profileIdd, string button)
         {
             var ctx = new AppDbContext();
-            var RecieverId = profileId; 
+            var RecieverId = profileIdd; 
             var senderId = getUser();
 
             FriendRequest friendRequest = new FriendRequest { SenderId = senderId, RecieverId = RecieverId };
@@ -50,7 +50,14 @@ namespace DejtingApp.Controllers
             ctx.FriendRequests.Add(friendRequest);
             ctx.SaveChanges();
 
-            return RedirectToAction("Search", "Home");
+            if (button.Equals("profil"))
+            {
+                return RedirectToAction("Profilepage", "Profile", new { profileId = profileIdd});
+            }
+            else
+            {
+                return RedirectToAction("Search", "Home");
+            }
         }
 
         // GET: Search Results

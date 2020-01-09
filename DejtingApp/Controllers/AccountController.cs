@@ -96,6 +96,36 @@ namespace DejtingApp.Controllers
             return RedirectToAction("ViewFriendRequest", new { profileId = pid });
         }
 
+        public ActionResult AcceptFriendRequest(int profileId)
+        {
+            int pid = getUser();
+            using (var ctx = new AppDbContext())
+            {
+                var FriendReq = ctx.FriendRequests.FirstOrDefault(o => o.SenderId == profileId && o.RecieverId == pid);
+                if (FriendReq != null)
+                {
+                    var friend1 = new Friend
+                    {
+                        SenderId = FriendReq.SenderId,
+                        RecieverId = FriendReq.RecieverId,
+                        CategoryId = 1
+                    };
+                    var friend2 = new Friend
+                    {
+                        SenderId = FriendReq.RecieverId,
+                        RecieverId = FriendReq.SenderId,
+                        CategoryId = 1
+                    };
+                    ctx.Friends.Add(friend1);
+                    ctx.Friends.Add(friend2);
+                    ctx.FriendRequests.Remove(FriendReq);
+                    ctx.SaveChanges();
+
+                }
+            }
+            return RedirectToAction("ViewFriendRequest", new { profileId = pid });
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]

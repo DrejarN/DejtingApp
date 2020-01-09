@@ -33,7 +33,6 @@ namespace DejtingApp.Controllers
             viewModel.Profiles = ctx.Profiles.Where(x => x.ProfileId == id).ToList();
             viewModel.Messages = ctx.Messages.Where(o => o.RecieverId == id).ToList();
             viewModel.Friends = ctx.Friends.Where(f => f.RecieverId == id).ToList();
-            viewModel.ProfileViews = ctx.ProfileViews.Where(v => v.RecieveClickId == id).OrderByDescending(v => v.ProfileViewId).GroupBy(v => v.SendClickId).Select(v => v.FirstOrDefault()).Take(5).ToList();
 
             return View(viewModel);
         }
@@ -53,13 +52,12 @@ namespace DejtingApp.Controllers
         public ActionResult Profilepage(int profileId)
         {
             var ctx = new AppDbContext();
-            int id = profileId; //getUser();
 
             ProfilePageViewModels viewModel = new ProfilePageViewModels();
 
-            viewModel.Profiles = ctx.Profiles.Where(x => x.ProfileId == id).ToList();
-            viewModel.Messages = ctx.Messages.Where(o => o.RecieverId == id).ToList();
-            viewModel.Friends = ctx.Friends.Where(f => f.RecieverId == id).ToList();
+            viewModel.Profiles = ctx.Profiles.Where(x => x.ProfileId == profileId).ToList();
+            viewModel.Messages = ctx.Messages.Where(o => o.RecieverId == profileId).ToList();
+            viewModel.Friends = ctx.Friends.Where(f => f.RecieverId == profileId).ToList();
 
             return View(viewModel);
         }
@@ -72,8 +70,9 @@ namespace DejtingApp.Controllers
 
             var result = (from Friend in ctx.Friends
                           join Category in ctx.Categories on Friend.CategoryId equals Category.CategoryId
-                          join Profile in ctx.Profiles on Friend.RecieverId equals Profile.ProfileId
-                          where Friend.RecieverId != profileId
+                          join Profile in ctx.Profiles on Friend.SenderId equals Profile.ProfileId
+                          where Friend.RecieverId == profileId
+                          && Profile.Active == true
                           select new FriendListViewModel
                           {
                               ProfileId = Profile.ProfileId,
@@ -82,49 +81,13 @@ namespace DejtingApp.Controllers
                               Efternamn = Profile.Efternamn,
                               CategoryId = Category.CategoryId,
                               CategoryName = Category.CategoryName,
-                              Categories = ctx.Categories.ToList()
-
                           }).ToList();
 
+            var categories = ctx.Categories.ToList();
+            ViewBag.Category = new SelectList(categories, "CategoryId", "CategoryName");
 
             return View(result);
         }
-
-
-
-        //[HttpGet]
-        //public ActionResult Add(int id)
-        //{
-        //    using (AppDbContext dbModel = new AppDbContext())
-        //    {
-        //        return View(dbModel.Profiles.Where(x => x.ProfileId == id).FirstOrDefault());
-        //    }
-        //}
-
-        //[HttpPost]
-        //public ActionResult Add(int id, HttpPostedFileBase file)
-        //{
-        //    if (file != null && file.ContentLength > 0)
-        //        try
-        //        {
-
-        //            using (AppDbContext dbModel = new AppDbContext())
-        //            {
-        //                var result = dbModel.Profiles.SingleOrDefault(o => o.ProfileId == id);
-        //                result.ImagePath = Path.GetFileName(file.FileName);
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            ViewBag.Message = "ERROR:" + ex.Message.ToString();
-        //        }
-        //    else
-        //    {
-        //        ViewBag.Message = "You have not specified a file.";
-        //    }
-        //    return RedirectToAction("Index");
-        //}
-
 
         [HttpGet]
         public ActionResult Edit(int id)
@@ -160,6 +123,23 @@ namespace DejtingApp.Controllers
             }
         }
         // GET: Profile/Delete/5
+
+        [HttpPost]
+        public ActionResult EditStatus(int id, FormCollection dropdownValues)
+        {
+            int loggedIn = getUser();
+            var StatusName = dropdownValues["Category"].ToString();
+            AppDbContext dbModel = new AppDbContext();
+            if(StatusName != "")
+            {   
+                int cID = Int32.Parse(dropdownValues["Category"]);
+                var result = dbModel.Friends.SingleOrDefault(o => o.RecieverId == loggedIn && o.SenderId == id);
+                result.CategoryId = cID;
+                dbModel.SaveChanges();
+            }
+
+            return RedirectToAction("ViewFriendList", new { profileId = loggedIn });
+        }
         public ActionResult Delete(int id)
         {
             return View();

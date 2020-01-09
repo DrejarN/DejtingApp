@@ -55,6 +55,7 @@
             {
                 <h4 class="list-group-item-heading">About me</h4>
                 <p class="list-group-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                <input type="submit" class="btn-success" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { profileIdd = @item.ProfileId, button = "profil" })'" />
             }
         </div>
         <div class="col-md-8">

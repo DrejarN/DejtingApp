@@ -5,19 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ViewFriendRequest</h2>
+<h2>Your pending friendrequests</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProfileId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImagePath)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.Förnamn)
         </th>
@@ -30,21 +21,15 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ProfileId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImagePath)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Förnamn)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Efternamn)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ProfileId })
+            @Html.ActionLink("Accept", "AcceptFriendRequest", "Account", new { item.ProfileId }, null)
             @*@Html.ActionLink("Delete", "DeclineFriendRequest", null, new { id = "delete" })*@
-            @Html.ActionLink("Delete", "DeclineFriendRequest", "Account", new { item.ProfileId }, null)
+            @Html.ActionLink("Decline", "DeclineFriendRequest", "Account", new { item.ProfileId }, null)
             @*<button type="submit" onclick="return DeclineFriendRequest();"></button>*@
         
             @*<script type="text/javascript">

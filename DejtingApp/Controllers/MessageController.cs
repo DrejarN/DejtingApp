@@ -46,17 +46,5 @@ namespace DejtingApp.Controllers
             }
         }
        
-        [HttpPost]
-        public void Delete(int id)
-        {
-            using (var db = new AppDbContext())
-            {
-                var result = db.Messages.ToList();
-                var message = result.FirstOrDefault(o => o.MessageId == id);
-                db.Messages.Remove(message);
-                db.SaveChanges();
-            }
-        }
-
     }
 }

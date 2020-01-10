@@ -8,7 +8,8 @@ namespace DejtingApp.Models
 {
     public class ExampleUserViewModel
     {
-        
+        public List <Profile> Profiles { get; set; }
+
         [Display(Name = "Bild")]
         public string ImagePath { get; set; }
 

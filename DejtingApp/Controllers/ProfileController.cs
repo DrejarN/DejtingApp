@@ -192,5 +192,33 @@ namespace DejtingApp.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
+        public ActionResult UploadImage()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UploadImage(Image imageModel)
+        {
+            string filename = Path.GetFileNameWithoutExtension(imageModel.ImageFile.FileName);
+            string extension = Path.GetExtension(imageModel.ImageFile.FileName);
+            filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
+
+            imageModel.ImgPath = "~/Content/Images/" + filename;
+           
+            filename = Path.Combine(Server.MapPath("~/Content/Images/"), filename);
+            imageModel.ImageFile.SaveAs(filename);
+
+
+            using (AppDbContext db = new AppDbContext())
+            {
+                db.Images.Add(imageModel);
+                db.SaveChanges();
+            }
+            ModelState.Clear();
+            return View();
+        }
     }
 }

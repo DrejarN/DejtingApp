@@ -1,6 +1,6 @@
 ﻿@using DejtingApp.Models
 
-@model  DejtingApp.Models.ExampleUserViewModel
+@model  DejtingApp.Models.ProfilePageViewModels
 @{
     ViewBag.Title = "Home Page";
 }
@@ -13,29 +13,5 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        @Html.Partial("ExampleUser")
+    @Html.Partial("ExampleUser")
     </div>
-   
-    <div class="col-md-8" style="border-color: black">
-
-    </div>
-
-    <div class="col-md-4">
-        <h2>Shanequa, 25</h2>
-        <img src="~/Content/Images/shanequa.jpg" style="max-width: 200px; max-height: 200px" />
-        <p></p>
-        <p><a class="btn btn-default" href="https://localhost:44375/Profile/Profilepage?ProfileId=11">Meet Shanequa! &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Dolores, 65</h2>
-        <img src="~/Content/Images/dolores.jpg" style="max-width: 200px; max-height: 200px" />
-        <p></p>
-        <p>
-            
-            <a class="btn btn-default" href="https://localhost:44375/Profile/Profilepage?ProfileId=12">Meet Dolores! &raquo;</a>
-            
-        </p>
-        
-    </div>
-</div>

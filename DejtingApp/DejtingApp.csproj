@@ -338,10 +338,11 @@
     <Content Include="Views\Account\ViewFriendRequest.cshtml" />
     <Content Include="Views\Home\ExampleUser.cshtml" />
     <Content Include="Views\Profile\EditInterests.cshtml" />
-    <Content Include="Views\Interest\FindMatch.cshtml" />
+    <Content Include="Views\Profile\UploadImage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Interest\" />
     <Folder Include="Views\Message\" />
     <Folder Include="Views\ProfileView\" />
   </ItemGroup>

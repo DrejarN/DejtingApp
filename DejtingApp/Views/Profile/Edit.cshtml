@@ -66,8 +66,12 @@
             </div>
         </div>
     </div>
+    
+        
 }
 <input type="submit" class="btn-success" value="Edit interests" onclick="location.href='@Url.Action("EditInterests", "Profile")'" />
+@*<input type="button" class="btn btn-primary" onclick="location.href='@Url.Action("UploadImage", "Profile")'">Upload profile image</input>*@
+<input type="button" class="btn-link" value="Upload image" onclick="location.href='@Url.Action("UploadImage", "Profile")'" />
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

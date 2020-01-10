@@ -69,6 +69,7 @@
             @*En submit knapp för att skriva på wallen *@
             <br />
             <input type="button" value="Send message!" class="btn-large btn-primary" id="sendMessage" /> @* AJAX call ska peka på '#sendMessage'*@
+            <input type="button" value="Export profile" id="serializeProfile" class="btn-toolbar" />
         </div>
         <div class="col-md-4">
 
@@ -144,6 +145,19 @@
                 }
             });
         }
+
+            $('#serializeProfile').click(function () {
+                $.ajax({
+                    url: ("/Profile/Serialize"),
+                    //datatype: 'json',
+                    //contentType: "application/json",
+                    type: 'POST',
+                    //data: JSON.stringify(MessageId),
+                    success: function (data) {
+                        successmessage = 'Your profile was exported.';
+                    },
+                });
+            });
 
         function getNew() {
             $.ajax("/api/Message/lista").then(function (data) {

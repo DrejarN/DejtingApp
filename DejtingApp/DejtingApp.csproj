@@ -342,6 +342,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\SeralizedInfos\" />
     <Folder Include="Views\Interest\" />
     <Folder Include="Views\Message\" />
     <Folder Include="Views\ProfileView\" />

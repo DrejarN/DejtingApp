@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace DejtingApp.Controllers
 {
@@ -220,5 +221,42 @@ namespace DejtingApp.Controllers
             ModelState.Clear();
             return View();
         }
+
+        public JsonSerializer CreateSerializer()
+        {
+            return new JsonSerializer
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+        }
+
+        [HttpPost]
+        public void Serialize() //(string filename, List<T> Lists)
+        {
+            int pId = getUser();
+            AppDbContext ctx = new AppDbContext();
+            List<Profile> profiles = new List<Profile>();
+            profiles = ctx.Profiles.Where(x => x.ProfileId == pId).ToList();
+
+            string filename = Server.MapPath(@"~/Content/SeralizedInfos/profileinfo.txt");
+            try
+            {
+                var serializer = CreateSerializer();
+                using (var sw = new StreamWriter(filename)) //@"C:\podFeeds\profileinfo.txt"
+                {
+                    using (var jw = new JsonTextWriter(sw))
+                    {
+                        serializer.Formatting = Formatting.Indented;
+                        serializer.Serialize(jw, profiles);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+        }
+
     }
 }

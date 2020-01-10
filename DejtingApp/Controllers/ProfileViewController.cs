@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace DejtingApp.Controllers
 {
+    [Authorize]
     public class ProfileViewController : ApiController
     {
         [HttpGet]

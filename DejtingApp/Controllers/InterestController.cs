@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace DejtingApp.Controllers
 {
+    [Authorize]
     public class InterestController : Controller
     {
         [HttpPost]

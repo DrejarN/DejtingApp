@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 
 namespace DejtingApp.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         // Hämtar ProfileId på inloggad användare
@@ -24,6 +25,7 @@ namespace DejtingApp.Controllers
             return id;
         }
         // GET: OwnProfile
+        [Authorize]
         public ActionResult Index()
         {
             var ctx = new AppDbContext();
@@ -35,10 +37,12 @@ namespace DejtingApp.Controllers
             viewModel.Messages = ctx.Messages.Where(o => o.RecieverId == id).ToList();
             viewModel.Friends = ctx.Friends.Where(f => f.RecieverId == id).ToList();
             viewModel.Interests = ctx.Interests.Where(i => i.ProfileId == id).ToList();
+            viewModel.Images = ctx.Images.Where(i => i.ProfileId == id).ToList();
 
             return View(viewModel);
         }
 
+        [Authorize]
         public ActionResult DeleteInterest(int id)
         {
             var db = new AppDbContext();
@@ -50,6 +54,7 @@ namespace DejtingApp.Controllers
         }
 
         // Get: OtherProfile
+        [Authorize]
         [HttpPost]
         public void DeleteMessage(int id)
         {
@@ -61,6 +66,8 @@ namespace DejtingApp.Controllers
                 db.SaveChanges();
             }
         }
+
+        [Authorize]
         public ActionResult Profilepage(int profileId)
         {
             var ctx = new AppDbContext();
@@ -75,6 +82,7 @@ namespace DejtingApp.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult ViewFriendList(int profileId)
         {
@@ -102,6 +110,7 @@ namespace DejtingApp.Controllers
             return View(result);
         }
 
+        [Authorize]
         public ActionResult EditInterests()
         {
             int id = getUser();
@@ -111,7 +120,7 @@ namespace DejtingApp.Controllers
         }
 
 
-
+        [Authorize]
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -132,6 +141,7 @@ namespace DejtingApp.Controllers
         }
 
         // POST: Profile/Edit/5
+        [Authorize]
         [HttpPost]
         public ActionResult Edit(int id, FormCollection profil)
         {
@@ -156,7 +166,7 @@ namespace DejtingApp.Controllers
             }
         }
         // GET: Profile/Delete/5
-
+        [Authorize]
         [HttpPost]
         public ActionResult EditStatus(int id, FormCollection dropdownValues)
         {
@@ -180,6 +190,7 @@ namespace DejtingApp.Controllers
 
         // POST: Profile/Delete/5
         [HttpPost]
+        [Authorize]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
@@ -230,6 +241,7 @@ namespace DejtingApp.Controllers
             };
         }
 
+        [Authorize]
         [HttpPost]
         public void Serialize() //(string filename, List<T> Lists)
         {

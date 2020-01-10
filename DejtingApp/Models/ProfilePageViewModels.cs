@@ -14,6 +14,7 @@ namespace DejtingApp.Models
         public List<Friend> Friends { get; set; }
         public List<ProfileView> ProfileViews { get; set; }
         public List<Interest> Interests { get; set; }
+        public List<Image> Images { get; set; }
     }
 
     public class FriendListViewModel

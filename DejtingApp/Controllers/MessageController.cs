@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 
 namespace DejtingApp.Controllers
 {
+    [Authorize]
     public class MessageController : ApiController
     {
         [HttpGet]

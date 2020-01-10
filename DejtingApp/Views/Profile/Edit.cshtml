@@ -59,9 +59,6 @@
             </div>
         </div>
         
-        @*<input type="submit" class="btn-success" value="Edit interests" onclick="location.href='@Url.Action("EditInterests", "Profile")'" />
-        <a class="button" href='@Url.Action("EditInterests", "Profile")' />*@
-        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -72,8 +69,8 @@
         
 }
 <input type="submit" class="btn-success" value="Edit interests" onclick="location.href='@Url.Action("EditInterests", "Profile")'" />
-@*<input type="button" class="btn btn-primary" onclick="location.href='@Url.Action("UploadImage", "Profile")'">Upload profile image</input>*@
-<input type="button" class="btn-link" value="Upload image" onclick="location.href='@Url.Action("UploadImage", "Profile")'" />
+
+<input type="submit" class="btn-success" value="Upload image" onclick="location.href='@Url.Action("UploadImage", "Profile")'" />
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

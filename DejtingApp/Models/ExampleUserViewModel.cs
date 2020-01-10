@@ -10,15 +10,5 @@ namespace DejtingApp.Models
     {
         public List <Profile> Profiles { get; set; }
 
-        [Display(Name = "Bild")]
-        public string ImagePath { get; set; }
-
-        [Display(Name = "Namn")]
-        public string Förnamn { get; set; }
-
-        [Display(Name = "Ålder")]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime Födelseår { get; set; }
-
     }
 }

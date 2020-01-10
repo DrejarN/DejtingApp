@@ -22,7 +22,12 @@ namespace DejtingApp.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View();
+            var ctx = new AppDbContext();
+            var results = ctx.Profiles.Take(3).ToList();
+            var VM = new ExampleUserViewModel();
+            VM.Profiles = results;
+
+            return View(VM);
         }
 
         //Send friend request to user 
@@ -57,18 +62,5 @@ namespace DejtingApp.Controllers
             return View(results);
         }
 
-        public ActionResult ExampleUser()
-        {
-            var ctx = new AppDbContext();
-            var results = ctx.Profiles.ToList();
-            var first = results[0];
-            /*if (User.Identity.GetUserId() == null) {
-                return RedirectToAction("Register", "Account");
-            }
-
-            else {*/ 
-            return View(first);
-            //}
-        }
     }
 }

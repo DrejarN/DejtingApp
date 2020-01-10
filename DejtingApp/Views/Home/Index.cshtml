@@ -1,6 +1,6 @@
 ﻿@using DejtingApp.Models
 
-@model  DejtingApp.Models.ProfilePageViewModels
+@model  DejtingApp.Models.ExampleUserViewModel
 @{
     ViewBag.Title = "Home Page";
 }
@@ -13,5 +13,28 @@
 </div>
 
 <div class="row">
-    @Html.Partial("ExampleUser")
-    </div>
+    @foreach (var item in Model.Profiles)
+    {
+        <div class="cooldiv">
+
+            <h2>
+                @item.Förnamn, 
+                        @{
+                            var today = DateTime.Today;
+                            var date = today.Year - item.Födelseår.Year;
+                            if (item.Födelseår.Date > today.AddYears(-date)) { date--; }
+
+
+                            @Html.DisplayFor(modelItem => date);
+                        }
+                    </h2>
+            <img src="~/Content/Images/brian.jpeg" style=" width: 300px; height: 300px" />
+            <p></p>
+            <p>
+                <a class="btn btn-default" href="https://localhost:44375/Profile/Profilepage?ProfileId=@item.ProfileId">Meet @item.Förnamn&raquo;</a>
+            </p>
+        </div>
+    }
+
+
+</div>

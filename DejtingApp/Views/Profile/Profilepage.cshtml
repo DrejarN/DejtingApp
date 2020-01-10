@@ -61,7 +61,8 @@
         <div class="col-md-8">
             @*En submit knapp för att skriva på wallen *@
             <br />
-            <input type="button" value="Send message!" class="btn-large btn-primary" id="sendMessage" /> @* AJAX call ska peka på '#sendMessage'*@
+            <input type="button" value="Send message!" class="btn-large btn-primary" id="sendMessage" />
+            <input type="button" value="Do we match?" class="btn-large btn-primary" id="doWeMatch" />@* AJAX call ska peka på '#sendMessage'*@
         </div>
     </div>
     <div class="row">
@@ -96,7 +97,31 @@
                     }
                 }
             });
-        }
+            }
+
+
+        $("#doWeMatch").click(function () {
+            $.ajax({
+                //base address/controller/Action
+                url: 'https://localhost:44375/Interest/DoWeMatch',
+                type: 'GET',
+                data: {
+                    //Passing Input parameter
+                    id: @item.ProfileId
+                },
+                success: function (result) {
+                    if (result != "") {
+                        alert(result);
+                    }
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+            return false;
+
+            console.log(url)
+        });
 
             $("#sendMessage").click(function () {
                 $("#results").html("")

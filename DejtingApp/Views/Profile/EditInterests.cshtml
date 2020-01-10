@@ -7,16 +7,14 @@
 
 <h2>EditInterests</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("CreateNewInterest", "Interest", FormMethod.Post))
 {
-    <div>
-        @Html.TextBox("Text")
-        <input type="text" id="Text" name="Text" />
-        <input type="button" value="Send message!" class="btn-large btn-primary" onclick="location.href='@Url.Action("CreateNewInterest", "Profile")'" />
-    </div>
+<div>
+    @Html.TextBoxFor(model => model.FirstOrDefault().InterestName)
+    @Html.ValidationMessageFor(model => model.FirstOrDefault().InterestName)
+    <button type="submit">Save new interest</button>
+</div>
 }
-
-
 
 
 <table class="table">

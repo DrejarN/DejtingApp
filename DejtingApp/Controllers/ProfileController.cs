@@ -48,21 +48,6 @@ namespace DejtingApp.Controllers
 
         }
 
-        [HttpPost]
-        public ActionResult CreateNewInterest()
-        {
-            var db = new AppDbContext();
-            int id = getUser();
-            var interest = new Interest
-            {
-                InterestName = Request["Text"],
-                ProfileId = id
-            };
-            db.Interests.Add(interest);
-            db.SaveChanges();
-            return RedirectToAction("EditInterests");
-        }
-
         // Get: OtherProfile
         [HttpPost]
         public void DeleteMessage(int id)

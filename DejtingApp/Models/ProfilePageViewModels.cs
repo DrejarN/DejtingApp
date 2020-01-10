@@ -47,7 +47,7 @@ namespace DejtingApp.Models
 
     }
 
-    public class EditViewModel
+    /*public class EditViewModel
     {
         public string Förnamn { get; set; }
         public string Efternamn { get; set; }
@@ -60,5 +60,5 @@ namespace DejtingApp.Models
         public int ProfileId { get; set; }
 
 
-    }
+    }*/
 }

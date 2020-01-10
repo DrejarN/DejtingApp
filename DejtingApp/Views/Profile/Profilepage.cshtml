@@ -62,7 +62,10 @@
             @*En submit knapp för att skriva på wallen *@
             <br />
             <input type="button" value="Send message!" class="btn-large btn-primary" id="sendMessage" />
-            <input type="button" value="Do we match?" class="btn-large btn-primary" id="doWeMatch" />@* AJAX call ska peka på '#sendMessage'*@
+            @*<input type="button" value="Do we match?" class="btn-large btn-primary" id="doWeMatch" />*@
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="doWeMatch">
+                Do we match?
+            </button>
         </div>
     </div>
     <div class="row">
@@ -78,6 +81,25 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Is it a match?</h4>
+            </div>
+            <div class="modal-body" id="modalbody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @foreach (var item in Model.Profiles)
 {
     @section scripts {
@@ -102,16 +124,24 @@
 
         $("#doWeMatch").click(function () {
             $.ajax({
-                //base address/controller/Action
                 url: 'https://localhost:44375/Interest/DoWeMatch',
                 type: 'GET',
                 data: {
-                    //Passing Input parameter
                     id: @item.ProfileId
                 },
                 success: function (result) {
+                     $("#modalbody").html("");
+                    $('#myModal').modal('show')
                     if (result != "") {
-                        alert(result);
+                        var match = "<h4>It's a match!</h4>";
+                        var match2 = "<p>Youre both interested in :</p>";
+                        var match3 = "<h4>"+ result +"</h4>";
+                         $("#modalbody").append(match + match2 + match3);
+                    }
+                    else {
+                        var match = "<h4>Youre not a match...</h4>";
+                        var match2 = "<p>You've got no interests in common</p>";
+                         $("#modalbody").append(match + match2);
                     }
                 },
                 error: function () {

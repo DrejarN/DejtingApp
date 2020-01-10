@@ -46,5 +46,18 @@ namespace DejtingApp.Controllers
             int id = enprofil.ProfileId;
             return id;
         }
+
+        public ActionResult FindMatch()
+        {
+            int pid = getUser();
+            var ctx = new AppDbContext();
+            var intressen = (from interests in ctx.Interests where interests.ProfileId == pid select interests.InterestName).ToList();
+            var matches = (from interests in ctx.Interests where intressen.Contains(interests.InterestName) && interests.ProfileId != pid select interests).ToList();
+            List<int> ids = matches.Select(o => o.ProfileId).ToList();
+            var uniqueId = ids.GroupBy(a => a).Select(b => b.First()).ToList();
+            var profiles = (from Profiles in ctx.Profiles where ids.Contains(Profiles.ProfileId) select Profiles);
+
+            return View(profiles);
+        }
     }
 }

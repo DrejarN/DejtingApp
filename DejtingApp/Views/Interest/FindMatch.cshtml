@@ -1,0 +1,63 @@
+﻿
+@model IEnumerable<DejtingApp.Models.Profile>
+
+@using DejtingApp.Models
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "FindMatch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Matches found based on your interests</h2>
+
+<table class="table" align="center">
+    <tr>
+        <th>
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Förnamn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Efternamn)
+        </th>
+        <th>
+            Ålder
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="@item.ImagePath" height="100" width="100" />
+            </td>
+            <td>
+                @Html.ActionLink(item.Förnamn, "Profilepage", "Profile", new { @item.ProfileId }, null)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Efternamn)
+            </td>
+            <td>
+                @{
+                    var today = DateTime.Today;
+                    var date = today.Year - item.Födelseår.Year;
+                    if (item.Födelseår.Date > today.AddYears(-date)) { date--; }
+
+                    @Html.DisplayFor(modelItem => date);
+                }
+            </td>
+            <td>
+
+                <input type="submit" class="btn-success" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { profileIdd = @item.ProfileId, button = "search" })'" />
+
+
+
+
+            </td>
+        </tr>
+    }
+
+</table>

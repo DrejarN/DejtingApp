@@ -336,7 +336,6 @@
     <Content Include="Views\Profile\Profilepage.cshtml" />
     <Content Include="Views\Profile\ViewFriendList.cshtml" />
     <Content Include="Views\Account\ViewFriendRequest.cshtml" />
-    <Content Include="Views\Home\ExampleUser.cshtml" />
     <Content Include="Views\Profile\EditInterests.cshtml" />
     <Content Include="Views\Profile\UploadImage.cshtml" />
   </ItemGroup>

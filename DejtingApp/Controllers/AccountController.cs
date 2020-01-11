@@ -104,22 +104,33 @@ namespace DejtingApp.Controllers
                 var FriendReq = ctx.FriendRequests.FirstOrDefault(o => o.SenderId == profileId && o.RecieverId == pid);
                 if (FriendReq != null)
                 {
-                    var friend1 = new Friend
+                    
+                        var friend1 = new Friend
+                        {
+                            SenderId = FriendReq.SenderId,
+                            RecieverId = FriendReq.RecieverId,
+                            CategoryId = 1
+                        };
+                        var friend2 = new Friend
+                        {
+                            SenderId = FriendReq.RecieverId,
+                            RecieverId = FriendReq.SenderId,
+                            CategoryId = 1
+                        };
+                        ctx.Friends.Add(friend1);
+                        ctx.Friends.Add(friend2);
+                        ctx.FriendRequests.Remove(FriendReq);
+                    try
                     {
-                        SenderId = FriendReq.SenderId,
-                        RecieverId = FriendReq.RecieverId,
-                        CategoryId = 1
-                    };
-                    var friend2 = new Friend
+                        ctx.SaveChanges();
+                        
+                    }
+
+                    catch(Exception e)
                     {
-                        SenderId = FriendReq.RecieverId,
-                        RecieverId = FriendReq.SenderId,
-                        CategoryId = 1
-                    };
-                    ctx.Friends.Add(friend1);
-                    ctx.Friends.Add(friend2);
-                    ctx.FriendRequests.Remove(FriendReq);
-                    ctx.SaveChanges();
+                        return View();
+                        //throw new Exception(e.Message);
+                    }
 
                 }
             }

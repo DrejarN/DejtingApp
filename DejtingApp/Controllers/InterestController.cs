@@ -48,8 +48,11 @@ namespace DejtingApp.Controllers
             return id;
         }
 
+        [Authorize]
         public ActionResult FindMatch()
         {
+            if (User.Identity.GetUserId() == null) { return RedirectToAction("Register", "Account"); }
+
             int pid = getUser();
             var ctx = new AppDbContext();
             var intressen = (from interests in ctx.Interests where interests.ProfileId == pid select interests.InterestName).ToList();

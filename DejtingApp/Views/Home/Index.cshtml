@@ -1,40 +1,42 @@
-﻿@using DejtingApp.Models
-
-@model  DejtingApp.Models.ExampleUserViewModel
+﻿
+@model  IEnumerable<DejtingApp.Models.ExampleUserViewModel>
 @{
     ViewBag.Title = "Home Page";
 }
 
 <div class="jumbotron">
-    <h1>Up-Yours!</h1>
-    <p class="lead">Up-Yours is Grindr 2.0.</p>
+    <h1>Meetify</h1>
+    <p class="lead">The place to meet new people!</p>
     <p>Here you can find friends, lovers or relations of your own preference without even having to try - we will do it for you! Sign up today to take part in this once in a lifetime opportunity. Let's embark on this beautiful journey together! </p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Sign up &raquo;</a></p>
+    <p><a href="https://localhost:44375/Account/Register" class="btn btn-primary btn-lg">Sign up &raquo;</a></p>
 </div>
 
 <div class="row">
-    @foreach (var item in Model.Profiles)
+    @foreach (var item in Model)
     {
         <div class="cooldiv">
+            <h2 style="align">
+                @item.Förnamn,
+                @{
+                    var today = DateTime.Today;
+                    var date = today.Year - item.Födelseår.Year;
+                    if (item.Födelseår.Date > today.AddYears(-date)) { date--; }
 
-            <h2>
-                @item.Förnamn, 
-                        @{
-                            var today = DateTime.Today;
-                            var date = today.Year - item.Födelseår.Year;
-                            if (item.Födelseår.Date > today.AddYears(-date)) { date--; }
 
-
-                            @Html.DisplayFor(modelItem => date);
-                        }
-                    </h2>
-            <img src="~/Content/Images/brian.jpeg" style=" width: 300px; height: 300px" />
-            <p></p>
+                    @Html.DisplayFor(modelItem => date);
+                }
+            </h2>
+            @if (item.ImagePath != null)
+            {
+                <img src="@Url.Content(item.ImagePath)" style="width: 200px; height: 230px" />
+            }
+            else
+            {
+                <img src="~/Content/Images/default.png" style="width: 200px; height: 230px" />
+            }
             <p>
-                <a class="btn btn-default" href="https://localhost:44375/Profile/Profilepage?ProfileId=@item.ProfileId">Meet @item.Förnamn&raquo;</a>
+                <a class="btn btn-default" href="https://localhost:44375/Profile/Profilepage?ProfileId=@item.ProfileId">Meet @item.Förnamn &raquo;</a>
             </p>
         </div>
     }
-
-
 </div>

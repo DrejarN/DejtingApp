@@ -37,7 +37,7 @@ namespace DejtingApp.Controllers
             viewModel.Messages = ctx.Messages.Where(o => o.RecieverId == id).ToList();
             viewModel.Friends = ctx.Friends.Where(f => f.RecieverId == id).ToList();
             viewModel.Interests = ctx.Interests.Where(i => i.ProfileId == id).ToList();
-            viewModel.Images = ctx.Images.Where(i => i.ProfileId == id).ToList();
+            viewModel.Image = ctx.Images.FirstOrDefault(i => i.ProfileId == id);
 
             return View(viewModel);
         }
@@ -78,6 +78,7 @@ namespace DejtingApp.Controllers
             viewModel.Messages = ctx.Messages.Where(o => o.RecieverId == profileId).ToList();
             viewModel.Friends = ctx.Friends.Where(f => f.RecieverId == profileId).ToList();
             viewModel.Interests = ctx.Interests.Where(i => i.ProfileId == profileId).ToList();
+            viewModel.Image = ctx.Images.FirstOrDefault(i => i.ProfileId == profileId);
 
             return View(viewModel);
         }
@@ -97,11 +98,11 @@ namespace DejtingApp.Controllers
                           select new FriendListViewModel
                           {
                               ProfileId = Profile.ProfileId,
-                              ImagePath = Profile.ImagePath,
                               Förnamn = Profile.Förnamn,
                               Efternamn = Profile.Efternamn,
                               CategoryId = Category.CategoryId,
                               CategoryName = Category.CategoryName,
+                              ImagePath = ctx.Images.FirstOrDefault(a => a.ProfileId == Profile.ProfileId).ImgPath
                           }).ToList();
 
             var categories = ctx.Categories.ToList();
@@ -153,6 +154,7 @@ namespace DejtingApp.Controllers
                     result.Förnamn = Request["Förnamn"];
                     result.Efternamn = Request["Efternamn"];
                     result.Födelseår = Convert.ToDateTime(Request["Födelseår"]);
+                    result.Active = Convert.ToBoolean(Request["Active"].Split(',')[0]);
                     result.Description = Request["Description"];
       
                     dbModel.SaveChanges();
@@ -160,7 +162,7 @@ namespace DejtingApp.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception e)
             {
                 return View();
             }

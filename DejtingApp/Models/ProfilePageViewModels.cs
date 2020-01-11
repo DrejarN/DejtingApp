@@ -14,18 +14,18 @@ namespace DejtingApp.Models
         public List<Friend> Friends { get; set; }
         public List<ProfileView> ProfileViews { get; set; }
         public List<Interest> Interests { get; set; }
-        public List<Image> Images { get; set; }
+        public Image Image { get; set; }
     }
 
     public class FriendListViewModel
     {
         public int ProfileId { get; set; }
-        public string ImagePath { get; set; }
         public string Förnamn { get; set; }
         public string Efternamn { get; set; }
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public List<Category> Categories { get; set; }
+        public string ImagePath { get; set; }
 
     }
 
@@ -47,33 +47,4 @@ namespace DejtingApp.Models
         public string Efternamn { get; set; }
 
     }
-
-    /*public class EditViewModel
-    {
-        public string Förnamn { get; set; }
-        public string Efternamn { get; set; }
-        public string MyProperty { get; set; }
-        public DateTime Födelseår { get; set; }
-        public string Description { get; set; }
-        public int ImageId { get; set; }
-        public string ImageName { get; set; }
-        public string ImgPath { get; set; }
-        public int ProfileId { get; set; }
-
-
-    }*/
-    //public class EditViewModel
-    //{
-    //    public string Förnamn { get; set; }
-    //    public string Efternamn { get; set; }
-    //    public string MyProperty { get; set; }
-    //    public DateTime Födelseår { get; set; }
-    //    public string Description { get; set; }
-    //    public int ImageId { get; set; }
-    //    public string ImageName { get; set; }
-    //    public string ImgPath { get; set; }
-    //    public int ProfileId { get; set; }
-
-
-    //}
 }

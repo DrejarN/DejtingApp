@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Meetify</title>
     @Styles.Render("~/Content/css")
 
 </head>
@@ -16,15 +16,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Up-Yours", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Meetify", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse" style="text-align: center">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    @*<li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                     <li>@Html.ActionLink("Profile", "Index", "Profile")</li>
-                    <li style="margin-top: 12px">
+                    <li style="margin-top: 17px">
                         <div>
                             @using (Html.BeginForm("Search", "Home", FormMethod.Get))
                             {
@@ -33,9 +31,9 @@
                             }
                         </div>
                     </li>
-                    <li style="margin-top: 12px">
+                    <li style="margin-top: 8px; margin-left: 30px;">
                         <div>
-                            @Html.ActionLink("FindMatch", "FindMatch", "Interest");
+                            <input type="button" value="Find Match!" class="btn btn-danger" style="" onclick="location.href='@Url.Action("FindMatch", "Interest")', null" />
                         </div>
                     </li>
                 </ul>
@@ -47,7 +45,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Meetify</p>
         </footer>
     </div>
 
@@ -60,10 +58,5 @@
 
     @RenderSection("scripts", required: false)
 
-
-    @*<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-        <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>*@
-
-    @*<script type="text/javascript" src="~/Scripts/materialize/materialize.min.js"></script>*@
 </body>
 </html>

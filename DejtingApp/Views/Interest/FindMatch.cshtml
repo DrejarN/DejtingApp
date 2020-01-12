@@ -1,5 +1,4 @@
-﻿
-@model IEnumerable<DejtingApp.Models.Profile>
+﻿@model IEnumerable<DejtingApp.Models.Profile>
 
 @using DejtingApp.Models
 @using Microsoft.AspNet.Identity
@@ -9,18 +8,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Matches found based on your interests</h2>
+<h2 style="margin-bottom: 50px; ">Matches found based on your interests</h2>
 
 <table class="table" align="center">
     <tr>
-        <th>
-
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.Förnamn)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Efternamn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
             Ålder
@@ -32,13 +31,13 @@
     {
         <tr>
             <td>
-                <img src="@item.ImagePath" height="100" width="100" />
-            </td>
-            <td>
                 @Html.ActionLink(item.Förnamn, "Profilepage", "Profile", new { @item.ProfileId }, null)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Efternamn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
                 @{
@@ -50,11 +49,7 @@
                 }
             </td>
             <td>
-
-                <input type="submit" class="btn-success" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { profileIdd = @item.ProfileId, button = "search" })'" />
-
-
-
+                <input type="submit" class="btn-success" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home" , new { profileIdd=@item.ProfileId, button="search" })'" />
 
             </td>
         </tr>

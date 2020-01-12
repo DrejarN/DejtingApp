@@ -181,6 +181,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorHandlerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InterestController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -338,13 +339,13 @@
     <Content Include="Views\Account\ViewFriendRequest.cshtml" />
     <Content Include="Views\Profile\EditInterests.cshtml" />
     <Content Include="Views\Profile\UploadImage.cshtml" />
+    <Content Include="Views\Interest\FindMatch.cshtml" />
+    <Content Include="Views\ErrorHandler\Index.cshtml" />
+    <Content Include="Views\ErrorHandler\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\SeralizedInfos\" />
-    <Folder Include="Views\Interest\" />
-    <Folder Include="Views\Message\" />
-    <Folder Include="Views\ProfileView\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

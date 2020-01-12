@@ -16,16 +16,13 @@
     <div class="row">
         <div class="col-md-3">
 
-            @if (!Model.Images.Any())
+            @if (Model.Image != null)
             {
-                <img src="~/Content/Images/default.png" style="width: 200px; height: 250px" />
+                <img src="@Url.Content(Model.Image.ImgPath)" style="width: 200px; height: 250px" />
             }
             else
             {
-                foreach (var image in Model.Images)
-                {
-                    <img src="@image.ImgPath" style="width: 200px; height: 250px" />
-                }
+                <img src="~/Content/Images/default.png" style="width: 200px; height: 250px" />
             }
 
 

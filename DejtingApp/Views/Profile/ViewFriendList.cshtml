@@ -29,7 +29,14 @@
 @foreach (var item in Model) {
 <tr>
     <td>
-        <img src="@Html.DisplayFor(modelItem => item.ImagePath)" style="width: 100px; height: 100px;" />
+        @if (item.ImagePath != null)
+        {
+            <img src="@Url.Content(item.ImagePath)" style="width: 100px; height: 120px" />
+        }
+        else
+        {
+            <img src="~/Content/Images/default.png" style="width: 100px; height: 120px" />
+        }
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Förnamn)
@@ -49,7 +56,7 @@
         }
     </td>
     <td>
-        <input type="button" value="Remove friend" class="btn-danger" /> @*Funktionaliteten måste skapas.*@
+        <input type="button" class="btn-danger" value="Remove friend" onclick="location.href='@Url.Action("RemoveFriend", "Account", new { profileId = @item.ProfileId })'" />
     </td>
 </tr>
 }

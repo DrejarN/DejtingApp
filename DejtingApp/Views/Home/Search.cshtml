@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DejtingApp.Models.Profile>
+﻿@model IEnumerable<DejtingApp.Models.SearchViewModel>
 
 @using DejtingApp.Models
 @using Microsoft.AspNet.Identity
@@ -31,10 +31,17 @@
     {
         <tr>
             <td>
-                <img src="@item.ImagePath" height="100" width="100" />
+                @if (item.ImagePath != null)
+                {
+                    <img src="@Url.Content(item.ImagePath)" style="width: 100px; height: 120px" />
+                }
+                else
+                {
+                    <img src="~/Content/Images/default.png" style="width: 100px; height: 120px" />
+                }
             </td>
             <td>
-                    @Html.ActionLink(item.Förnamn, "Profilepage", "Profile", new { @item.ProfileId }, null)
+                @Html.ActionLink(item.Förnamn, "Profilepage", "Profile", new { @item.ProfileId }, null)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Efternamn)
@@ -49,75 +56,13 @@
                 }
             </td>
             <td>
-
                 <input type="submit" class="btn-success" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { profileIdd = @item.ProfileId, button = "search" })'" />
 
-
-
-
-                @*<input type="button" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { id = item.ProfileId })'" />*@
-
-                @*<div id="target">
-                        @using (Ajax.BeginForm("AddFriend", "Home", new AjaxOptions
-                        {
-                            OnSuccess = "OnSuccess",
-                            OnFailure = "OnFailure",
-                            InsertionMode = InsertionMode.Replace,
-                            UpdateTargetId = "target",
-                            HttpMethod = "POST",
-
-                        }))
-
-                        {
-                            <input type="submit" value="Send friend request" />
-                            <input type="submit" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { id = item.ProfileId })'" />
-                            <button class="btn-success" value="@item.ProfileId" onclick="return AddFriend(@item.ProfileId)">Send friend request</button>
-
-                            <script type="text/javascript">
-                                function AddFriend() {
-                                    $.ajax({ url: "AddFriend", success: function () { alert("Success"); } }); return false;
-                                };
-                            </script>
-
-                            <script type="text/javascript">
-                                function OnSuccess() {
-                                    alert("Friend request sent")
-                                };
-                                function OnFailure() {
-                                    alert("Error occured.");
-                                };
-                            </script>
-                        }
-                    </div>*@
             </td>
             <td>
-                @*@{
-                    @Html.ActionLink("Send friend request", "AddFriend", null, new { profileId = item.ProfileId })
-                    <script type="text/javascript">
-                        $("#profileId").click(function (e) {
-
-                            e.preventDefault();
-                            $.ajax({
-
-                                url: $(this).attr("href"), // comma here instead of semicolon
-                                success: function () {
-                                    alert("Value Added");  // or any other indication if you want to show
-                                }
-
-                            });
-
-                        });
-                    </script>*@
             </td>
         </tr>
     }
 
 </table>
-
-
-
-
-@*<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
-
-
 

@@ -90,7 +90,6 @@ namespace DejtingApp.Controllers
                 {
                     ctx.FriendRequests.Remove(FriendReq);
                     ctx.SaveChanges();
-
                 }
             }
             return RedirectToAction("ViewFriendRequest", new { profileId = pid });
@@ -104,26 +103,69 @@ namespace DejtingApp.Controllers
                 var FriendReq = ctx.FriendRequests.FirstOrDefault(o => o.SenderId == profileId && o.RecieverId == pid);
                 if (FriendReq != null)
                 {
-                    var friend1 = new Friend
+                    
+                        var friend1 = new Friend
+                        {
+                            SenderId = FriendReq.SenderId,
+                            RecieverId = FriendReq.RecieverId,
+                            CategoryId = 1
+                        };
+                        var friend2 = new Friend
+                        {
+                            SenderId = FriendReq.RecieverId,
+                            RecieverId = FriendReq.SenderId,
+                            CategoryId = 1
+                        };
+                        ctx.Friends.Add(friend1);
+                        ctx.Friends.Add(friend2);
+                        ctx.FriendRequests.Remove(FriendReq);
+                    try
                     {
-                        SenderId = FriendReq.SenderId,
-                        RecieverId = FriendReq.RecieverId,
-                        CategoryId = 1
-                    };
-                    var friend2 = new Friend
+                        ctx.SaveChanges();
+                        
+                    }
+
+                    catch(Exception e)
                     {
-                        SenderId = FriendReq.RecieverId,
-                        RecieverId = FriendReq.SenderId,
-                        CategoryId = 1
-                    };
-                    ctx.Friends.Add(friend1);
-                    ctx.Friends.Add(friend2);
-                    ctx.FriendRequests.Remove(FriendReq);
-                    ctx.SaveChanges();
+                        return View();
+                        //throw new Exception(e.Message);
+                    }
 
                 }
             }
             return RedirectToAction("ViewFriendRequest", new { profileId = pid });
+        }
+
+
+        //
+        // RemoveFriend
+
+        public ActionResult RemoveFriend(int profileId)
+        {
+            int pid = getUser();
+
+            using (var ctx = new AppDbContext())
+            {
+                var FriendSenderId = ctx.Friends.FirstOrDefault(o => o.SenderId == profileId && o.RecieverId == pid);
+                var FriendRecieverId = ctx.Friends.FirstOrDefault(o => o.SenderId == pid && o.RecieverId == profileId);
+                if (FriendSenderId != null && FriendRecieverId != null)
+                {
+                    ctx.Friends.Remove(FriendSenderId);
+                    ctx.Friends.Remove(FriendRecieverId);
+                    try
+                    {
+                        ctx.SaveChanges();
+                    }
+
+                    catch (Exception e)
+                    {
+                        return View();
+                        //throw new Exception(e.Message);
+                    }
+
+                }
+            }
+            return RedirectToAction("ViewFriendList", "Profile", new { profileId = pid });
         }
 
         //

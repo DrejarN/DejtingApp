@@ -8,7 +8,9 @@ namespace DejtingApp.Models
 {
     public class ExampleUserViewModel
     {
-        public List <Profile> Profiles { get; set; }
-
+        public int ProfileId { get; set; }
+        public string Förnamn { get; set; }
+        public DateTime Födelseår { get; set; }
+        public string ImagePath { get; set; }
     }
 }

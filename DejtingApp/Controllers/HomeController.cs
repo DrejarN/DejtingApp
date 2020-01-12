@@ -23,11 +23,17 @@ namespace DejtingApp.Controllers
         public ActionResult Index()
         {
             var ctx = new AppDbContext();
-            var results = ctx.Profiles.Take(3).ToList();
-            var VM = new ExampleUserViewModel();
-            VM.Profiles = results;
+            var results = (from Profile in ctx.Profiles
+                           select new ExampleUserViewModel
+                           {
+                               ProfileId = Profile.ProfileId,
+                               Förnamn = Profile.Förnamn,
+                               Födelseår = Profile.Födelseår,
+                               ImagePath = ctx.Images.FirstOrDefault(a => a.ProfileId == Profile.ProfileId).ImgPath
 
-            return View(VM);
+                           }).Take(4).ToList();
+
+            return View(results);
         }
 
         //Send friend request to user 
@@ -57,10 +63,21 @@ namespace DejtingApp.Controllers
         public ActionResult Search(string input)
         {
             var ctx = new AppDbContext();
-            var results = ctx.Profiles.Where(u => u.Förnamn.Contains(input) && u.Active == true).ToList(); //&& ctx.Profiles.Where(z => z.Active.Equals(true))
 
-            return View(results);
+            var result = (from Profile in ctx.Profiles
+                          where Profile.Förnamn.Contains(input) && Profile.Active == true
+                          select new SearchViewModel
+                          {
+                              ImagePath = ctx.Images.FirstOrDefault(a => a.ProfileId == Profile.ProfileId).ImgPath,
+                              ProfileId = Profile.ProfileId,
+                              Förnamn = Profile.Förnamn,
+                              Efternamn = Profile.Efternamn,
+                              Födelseår = Profile.Födelseår
+
+                          }).ToList();
+
+            return View(result);
+
         }
-
     }
 }

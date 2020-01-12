@@ -216,18 +216,27 @@ namespace DejtingApp.Controllers
         [HttpPost]
         public ActionResult UploadImage(Image imageModel)
         {
+            int pid = getUser();
+
             string filename = Path.GetFileNameWithoutExtension(imageModel.ImageFile.FileName);
             string extension = Path.GetExtension(imageModel.ImageFile.FileName);
             filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
 
             imageModel.ImgPath = "~/Content/Images/" + filename;
+            imageModel.ProfileId = pid;
+            imageModel.ImageName = filename;
            
             filename = Path.Combine(Server.MapPath("~/Content/Images/"), filename);
             imageModel.ImageFile.SaveAs(filename);
 
-
             using (AppDbContext db = new AppDbContext())
             {
+                var hasPicture = db.Images.FirstOrDefault(i => i.ProfileId == pid);
+                if(hasPicture != null )
+                {
+                    db.Images.Remove(hasPicture);
+                }
+
                 db.Images.Add(imageModel);
                 db.SaveChanges();
             }

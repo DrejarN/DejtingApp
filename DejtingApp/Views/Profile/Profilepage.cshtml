@@ -113,9 +113,11 @@
         <script type="text/javascript">
    $(document).ready(function() {
             getNew();
-        });
+   });
+
         function getNew() {
             $.ajax("/api/Message/lista").then(function (data) {
+                $("#Text").val("");
                 for(var i=0;i<data.length;i++)
                 {
                     if (data[i].Reciever == @item.ProfileId) {
@@ -126,15 +128,14 @@
                     }
                 }
             });
-            }
-
+          }
 
         $("#doWeMatch").click(function () {
             $.ajax({
                 url: 'https://localhost:44375/Interest/DoWeMatch',
                 type: 'GET',
                 data: {
-                    id: @item.ProfileId
+                    id: @item.ProfileId,
                 },
                 success: function (result) {
                      $("#modalbody").html("");
@@ -161,7 +162,7 @@
         });
 
             $("#sendMessage").click(function () {
-                $("#results").html("")
+                $("#results").html("");
                 var request = new MessageModel()
                 $.ajax({
                     url: "/api/Message/PostMessage",
@@ -170,11 +171,9 @@
                     type: "POST",
                     data: JSON.stringify(request),
                     success: function (response) {
-                        $("#Text").val("");
                         getNew();
                     }
-
-                })
+                });
             });
             function MessageModel() {
                 var id = ""; //Nice!

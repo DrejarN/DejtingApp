@@ -163,7 +163,7 @@
                     type: 'POST',
                     //data: JSON.stringify(MessageId),
                     success: function (data) {
-                        successmessage = 'Your profile was exported.';
+                        alert("Your profile has been saved!");
                     },
                 });
             });
@@ -174,11 +174,10 @@
                 for(var i=0;i<data.length;i++)
                 {
                     if (data[i].Reciever == @item.ProfileId) {
-                        var result = "<p>" + data[i].MessageText + "</p>";
-                        var namn = "<h4>" + data[i].Förnamn + " " + data[i].Efternamn + "</h4>";
-                        var datum = "<p>" + data[i].Datum + "</p>";
+                        var result = "<p>" + data[i].MessageText + " </p>";
+                        var namn = "<h4>" + data[i].Förnamn + " " + data[i].Efternamn + " Wrote: </h4>";
                         var button = '<button class="btn btnDelete" data-model-id="' + data[i].MessageID + '">delete</button>';
-                        $("#results").append(namn + result + datum + button);
+                        $("#results").append(namn + result + button);
                     }
                 }
             });
@@ -203,7 +202,7 @@
                     type: 'POST',
                     data: JSON.stringify(MessageId),
                 }).done(function () {
-                    $("#Text").val(""),
+                    $("#results").html("")
                     getNew();
                 });
             $('#myModal').modal('hide');

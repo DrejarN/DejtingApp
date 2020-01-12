@@ -26,6 +26,7 @@ namespace DejtingApp.Controllers
             var results = (from Profile in ctx.Profiles
                            select new ExampleUserViewModel
                            {
+                               ProfileId = Profile.ProfileId,
                                Förnamn = Profile.Förnamn,
                                Födelseår = Profile.Födelseår,
                                ImagePath = ctx.Images.FirstOrDefault(a => a.ProfileId == Profile.ProfileId).ImgPath

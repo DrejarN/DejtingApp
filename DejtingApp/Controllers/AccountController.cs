@@ -64,21 +64,33 @@ namespace DejtingApp.Controllers
         public ActionResult ViewFriendRequest(int profileId)
         {
             var ctx = new AppDbContext();
-            FriendRequestViewModel viewModel = new FriendRequestViewModel();
+            try
+            {
+                FriendRequestViewModel viewModel = new FriendRequestViewModel();
 
-            var result = (from FriendRequest in ctx.FriendRequests
-                          join Profile in ctx.Profiles on FriendRequest.SenderId equals Profile.ProfileId
-                          where FriendRequest.RecieverId == profileId
-                          select new FriendRequestViewModel
-                          {
-                              ProfileId = Profile.ProfileId,
-                              ImagePath = Profile.ImagePath,
-                              Förnamn = Profile.Förnamn,
-                              Efternamn = Profile.Efternamn,
+                var result = (from FriendRequest in ctx.FriendRequests
+                              join Profile in ctx.Profiles on FriendRequest.SenderId equals Profile.ProfileId
+                              where FriendRequest.RecieverId == profileId
+                              select new FriendRequestViewModel
+                              {
+                                  ProfileId = Profile.ProfileId,
+                                  ImagePath = Profile.ImagePath,
+                                  Förnamn = Profile.Förnamn,
+                                  Efternamn = Profile.Efternamn,
 
-                          }).ToList();
+                              }).ToList();
 
-            return View(result);
+
+                return View(result);
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("GenericError", "ErrorHandler");
+
+            }
+
+
         }
         public ActionResult DeclineFriendRequest(int profileId)
         {
@@ -95,7 +107,7 @@ namespace DejtingApp.Controllers
                         ctx.SaveChanges();
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
 
                     return RedirectToAction("GenericError", "ErrorHandler");
@@ -137,7 +149,7 @@ namespace DejtingApp.Controllers
                     }
                 }
 
-                catch (Exception e)
+                catch (Exception)
                 {
 
                     return RedirectToAction("GenericError", "ErrorHandler");
@@ -165,20 +177,10 @@ namespace DejtingApp.Controllers
                     {
                         ctx.Friends.Remove(FriendSenderId);
                         ctx.Friends.Remove(FriendRecieverId);
-                        try
-                        {
-                            ctx.SaveChanges();
-                        }
-
-                        catch (Exception e)
-                        {
-                            return View();
-                            //throw new Exception(e.Message);
-                        }
-
+                        ctx.SaveChanges();              
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
 
                     return RedirectToAction("GenericError", "ErrorHandler");

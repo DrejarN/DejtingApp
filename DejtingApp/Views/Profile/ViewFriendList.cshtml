@@ -56,7 +56,7 @@
         }
     </td>
     <td>
-        <input type="button" value="Remove friend" class="btn-danger" /> @*Funktionaliteten måste skapas.*@
+        <input type="button" class="btn-danger" value="Remove friend" onclick="location.href='@Url.Action("RemoveFriend", "Account", new { profileId = @item.ProfileId })'" />
     </td>
 </tr>
 }

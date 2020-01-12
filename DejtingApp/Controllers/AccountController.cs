@@ -90,7 +90,6 @@ namespace DejtingApp.Controllers
                 {
                     ctx.FriendRequests.Remove(FriendReq);
                     ctx.SaveChanges();
-
                 }
             }
             return RedirectToAction("ViewFriendRequest", new { profileId = pid });
@@ -135,6 +134,38 @@ namespace DejtingApp.Controllers
                 }
             }
             return RedirectToAction("ViewFriendRequest", new { profileId = pid });
+        }
+
+
+        //
+        // RemoveFriend
+
+        public ActionResult RemoveFriend(int profileId)
+        {
+            int pid = getUser();
+
+            using (var ctx = new AppDbContext())
+            {
+                var FriendSenderId = ctx.Friends.FirstOrDefault(o => o.SenderId == profileId && o.RecieverId == pid);
+                var FriendRecieverId = ctx.Friends.FirstOrDefault(o => o.SenderId == pid && o.RecieverId == profileId);
+                if (FriendSenderId != null && FriendRecieverId != null)
+                {
+                    ctx.Friends.Remove(FriendSenderId);
+                    ctx.Friends.Remove(FriendRecieverId);
+                    try
+                    {
+                        ctx.SaveChanges();
+                    }
+
+                    catch (Exception e)
+                    {
+                        return View();
+                        //throw new Exception(e.Message);
+                    }
+
+                }
+            }
+            return RedirectToAction("ViewFriendList", "Profile", new { profileId = pid });
         }
 
         //

@@ -245,7 +245,7 @@ namespace DejtingApp.Controllers
 
         [Authorize]
         [HttpPost]
-        public void Serialize() //(string filename, List<T> Lists)
+        public void Serialize()
         {
             int pId = getUser();
             AppDbContext ctx = new AppDbContext();
@@ -256,7 +256,7 @@ namespace DejtingApp.Controllers
             try
             {
                 var serializer = CreateSerializer();
-                using (var sw = new StreamWriter(filename)) //@"C:\podFeeds\profileinfo.txt"
+                using (var sw = new StreamWriter(filename))
                 {
                     using (var jw = new JsonTextWriter(sw))
                     {

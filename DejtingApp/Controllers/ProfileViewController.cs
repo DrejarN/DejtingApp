@@ -14,21 +14,23 @@ namespace DejtingApp.Controllers
         [HttpGet]
         public List<ViewsListViewModel> Viewslista()
         {
-            using (var db = new AppDbContext())
-            {
-                var pid = getUser();
-                var result = (from Profile in db.Profiles
-                              join ProfileView in db.ProfileViews on Profile.ProfileId equals ProfileView.SendClickId
-                              where ProfileView.RecieveClickId == pid
-                              orderby ProfileView.ProfileViewId descending
-                              select new ViewsListViewModel
-                              {
-                                  Förnamn = Profile.Förnamn,
-                                  Efternamn = Profile.Efternamn
+                using (var db = new AppDbContext())
+                {
+                    var pid = getUser();
+                    var result = (from Profile in db.Profiles
+                                  join ProfileView in db.ProfileViews on Profile.ProfileId equals ProfileView.SendClickId
+                                  where ProfileView.RecieveClickId == pid
+                                  orderby ProfileView.ProfileViewId descending
+                                  select new ViewsListViewModel
+                                  {
+                                      Förnamn = Profile.Förnamn,
+                                      Efternamn = Profile.Efternamn
 
-                              }).Take(5).ToList();
-                return result;
-            }
+                                  }).Take(5).ToList();
+                    return result;
+                }
+            
+            
         }
 
         [HttpDelete]
@@ -44,18 +46,27 @@ namespace DejtingApp.Controllers
         [HttpPost]
         public void TickProfileCount(ProfileView profileView)
         {
-            var ctx = new AppDbContext();
+            try
+            {
+                var ctx = new AppDbContext();
 
-            var profilId = getUser();
+                var profilId = getUser();
 
-            //Ticker för ProfileViews.
-            ProfileView pView = new ProfileView()
-            { 
-                SendClickId = profilId, RecieveClickId = profileView.RecieveClickId
-            };
+                //Ticker för ProfileViews.
+                ProfileView pView = new ProfileView()
+                {
+                    SendClickId = profilId,
+                    RecieveClickId = profileView.RecieveClickId
+                };
 
-            ctx.ProfileViews.Add(pView);
-            ctx.SaveChanges();
+                ctx.ProfileViews.Add(pView);
+                ctx.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                
+            }
 
         }
     }

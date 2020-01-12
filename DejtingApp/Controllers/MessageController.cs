@@ -36,17 +36,24 @@ namespace DejtingApp.Controllers
         [HttpPost]
         public void PostMessage(Message message)
         {
-
-            using (var db = new AppDbContext())
+            try
             {
-                var userID = User.Identity.GetUserId();
-                var profil = db.Profiles.FirstOrDefault(o => o.ApplicationUser == userID);
-                DateTime now = DateTime.Now;
-                var newMessage = new Message() { MessageText = message.MessageText, MessageCreated = now, SenderId = profil.ProfileId, RecieverId = message.RecieverId };
-                db.Messages.Add(newMessage);
-                db.SaveChanges();
+                using (var db = new AppDbContext())
+                {
+                    var userID = User.Identity.GetUserId();
+                    var profil = db.Profiles.FirstOrDefault(o => o.ApplicationUser == userID);
+                    DateTime now = DateTime.Now;
+                    var newMessage = new Message() { MessageText = message.MessageText, MessageCreated = now, SenderId = profil.ProfileId, RecieverId = message.RecieverId };
+                    db.Messages.Add(newMessage);
+                    db.SaveChanges();
+                }
             }
+            catch (Exception)
+            {
+
+            }
+
         }
-       
+
     }
 }

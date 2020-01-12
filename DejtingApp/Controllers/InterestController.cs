@@ -14,17 +14,26 @@ namespace DejtingApp.Controllers
         [HttpPost]
         public ActionResult CreateNewInterest(Interest interest)
         {
-            var db = new AppDbContext();
-            int id = getUser();
-            var newinterest = new Interest
+            try
+            {
+                var db = new AppDbContext();
+                int id = getUser();
+                var newinterest = new Interest
+                {
+
+                    InterestName = interest.InterestName,
+                    ProfileId = id
+                };
+                db.Interests.Add(newinterest);
+                db.SaveChanges();
+                return RedirectToAction("EditInterests", "Profile");
+            }
+            catch (Exception)
             {
 
-                InterestName = interest.InterestName,
-                ProfileId = id
-            };
-            db.Interests.Add(newinterest);
-            db.SaveChanges();
-            return RedirectToAction("EditInterests", "Profile") ;
+                return RedirectToAction("GenericError", "ErrorHandler");
+
+            }
         }
 
         [HttpGet]
@@ -51,17 +60,26 @@ namespace DejtingApp.Controllers
         [Authorize]
         public ActionResult FindMatch()
         {
-            if (User.Identity.GetUserId() == null) { return RedirectToAction("Register", "Account"); }
+            try
+            {
+                if (User.Identity.GetUserId() == null) { return RedirectToAction("Register", "Account"); }
 
-            int pid = getUser();
-            var ctx = new AppDbContext();
-            var intressen = (from interests in ctx.Interests where interests.ProfileId == pid select interests.InterestName).ToList();
-            var matches = (from interests in ctx.Interests where intressen.Contains(interests.InterestName) && interests.ProfileId != pid select interests).ToList();
-            List<int> ids = matches.Select(o => o.ProfileId).ToList();
-            var uniqueId = ids.GroupBy(a => a).Select(b => b.First()).ToList();
-            var profiles = (from Profiles in ctx.Profiles where ids.Contains(Profiles.ProfileId) select Profiles);
+                int pid = getUser();
+                var ctx = new AppDbContext();
+                var intressen = (from interests in ctx.Interests where interests.ProfileId == pid select interests.InterestName).ToList();
+                var matches = (from interests in ctx.Interests where intressen.Contains(interests.InterestName) && interests.ProfileId != pid select interests).ToList();
+                List<int> ids = matches.Select(o => o.ProfileId).ToList();
+                var uniqueId = ids.GroupBy(a => a).Select(b => b.First()).ToList();
+                var profiles = (from Profiles in ctx.Profiles where ids.Contains(Profiles.ProfileId) select Profiles);
 
-            return View(profiles);
+                return View(profiles);
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("GenericError", "ErrorHandler");
+
+            }
         }
     }
 }

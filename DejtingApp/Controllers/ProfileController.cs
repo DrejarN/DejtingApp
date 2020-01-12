@@ -28,28 +28,46 @@ namespace DejtingApp.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            var ctx = new AppDbContext();
-            ProfilePageViewModels viewModel = new ProfilePageViewModels();
+            try
+            {
+                var ctx = new AppDbContext();
+                ProfilePageViewModels viewModel = new ProfilePageViewModels();
 
-            int id = getUser();
-            
-            viewModel.Profiles = ctx.Profiles.Where(x => x.ProfileId == id).ToList();
-            viewModel.Messages = ctx.Messages.Where(o => o.RecieverId == id).ToList();
-            viewModel.Friends = ctx.Friends.Where(f => f.RecieverId == id).ToList();
-            viewModel.Interests = ctx.Interests.Where(i => i.ProfileId == id).ToList();
-            viewModel.Image = ctx.Images.FirstOrDefault(i => i.ProfileId == id);
+                int id = getUser();
 
-            return View(viewModel);
+                viewModel.Profiles = ctx.Profiles.Where(x => x.ProfileId == id).ToList();
+                viewModel.Messages = ctx.Messages.Where(o => o.RecieverId == id).ToList();
+                viewModel.Friends = ctx.Friends.Where(f => f.RecieverId == id).ToList();
+                viewModel.Interests = ctx.Interests.Where(i => i.ProfileId == id).ToList();
+                viewModel.Image = ctx.Images.FirstOrDefault(i => i.ProfileId == id);
+
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("GenericError", "ErrorHandler");
+
+            }
         }
 
         [Authorize]
         public ActionResult DeleteInterest(int id)
         {
-            var db = new AppDbContext();
-            var interest = db.Interests.FirstOrDefault(x => x.InterestId == id);
-            db.Interests.Remove(interest);
-            db.SaveChanges();
-            return RedirectToAction("EditInterests");
+            try
+            {
+                var db = new AppDbContext();
+                var interest = db.Interests.FirstOrDefault(x => x.InterestId == id);
+                db.Interests.Remove(interest);
+                db.SaveChanges();
+                return RedirectToAction("EditInterests");
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("GenericError", "ErrorHandler");
+
+            }
 
         }
 
@@ -70,45 +88,63 @@ namespace DejtingApp.Controllers
         [Authorize]
         public ActionResult Profilepage(int profileId)
         {
-            var ctx = new AppDbContext();
+            try
+            {
+                var ctx = new AppDbContext();
 
-            ProfilePageViewModels viewModel = new ProfilePageViewModels();
+                ProfilePageViewModels viewModel = new ProfilePageViewModels();
 
-            viewModel.Profiles = ctx.Profiles.Where(x => x.ProfileId == profileId).ToList();
-            viewModel.Messages = ctx.Messages.Where(o => o.RecieverId == profileId).ToList();
-            viewModel.Friends = ctx.Friends.Where(f => f.RecieverId == profileId).ToList();
-            viewModel.Interests = ctx.Interests.Where(i => i.ProfileId == profileId).ToList();
-            viewModel.Image = ctx.Images.FirstOrDefault(i => i.ProfileId == profileId);
+                viewModel.Profiles = ctx.Profiles.Where(x => x.ProfileId == profileId).ToList();
+                viewModel.Messages = ctx.Messages.Where(o => o.RecieverId == profileId).ToList();
+                viewModel.Friends = ctx.Friends.Where(f => f.RecieverId == profileId).ToList();
+                viewModel.Interests = ctx.Interests.Where(i => i.ProfileId == profileId).ToList();
+                viewModel.Image = ctx.Images.FirstOrDefault(i => i.ProfileId == profileId);
 
-            return View(viewModel);
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("GenericError", "ErrorHandler");
+
+            }
         }
 
         [Authorize]
         [HttpGet]
         public ActionResult ViewFriendList(int profileId)
         {
-            var ctx = new AppDbContext();
-            FriendListViewModel viewModel = new FriendListViewModel();
+            try
+            {
+                var ctx = new AppDbContext();
+                FriendListViewModel viewModel = new FriendListViewModel();
 
-            var result = (from Friend in ctx.Friends
-                          join Category in ctx.Categories on Friend.CategoryId equals Category.CategoryId
-                          join Profile in ctx.Profiles on Friend.SenderId equals Profile.ProfileId
-                          where Friend.RecieverId == profileId
-                          && Profile.Active == true
-                          select new FriendListViewModel
-                          {
-                              ProfileId = Profile.ProfileId,
-                              Förnamn = Profile.Förnamn,
-                              Efternamn = Profile.Efternamn,
-                              CategoryId = Category.CategoryId,
-                              CategoryName = Category.CategoryName,
-                              ImagePath = ctx.Images.FirstOrDefault(a => a.ProfileId == Profile.ProfileId).ImgPath
-                          }).ToList();
+                var result = (from Friend in ctx.Friends
+                              join Category in ctx.Categories on Friend.CategoryId equals Category.CategoryId
+                              join Profile in ctx.Profiles on Friend.SenderId equals Profile.ProfileId
+                              where Friend.RecieverId == profileId
+                              && Profile.Active == true
+                              select new FriendListViewModel
+                              {
+                                  ProfileId = Profile.ProfileId,
+                                  Förnamn = Profile.Förnamn,
+                                  Efternamn = Profile.Efternamn,
+                                  CategoryId = Category.CategoryId,
+                                  CategoryName = Category.CategoryName,
+                                  ImagePath = ctx.Images.FirstOrDefault(a => a.ProfileId == Profile.ProfileId).ImgPath
+                              }).ToList();
 
-            var categories = ctx.Categories.ToList();
-            ViewBag.Category = new SelectList(categories, "CategoryId", "CategoryName");
+                var categories = ctx.Categories.ToList();
+                ViewBag.Category = new SelectList(categories, "CategoryId", "CategoryName");
 
-            return View(result);
+                return View(result);
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("GenericError", "ErrorHandler");
+
+            }
         }
 
         [Authorize]
@@ -125,19 +161,28 @@ namespace DejtingApp.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            using (AppDbContext dbModel = new AppDbContext())
+            try
             {
-                var profil = dbModel.Profiles.SingleOrDefault(x => x.ProfileId == id);
-                var result = new EditViewModel
+                using (AppDbContext dbModel = new AppDbContext())
                 {
-                    Förnamn = profil.Förnamn,
-                    Efternamn = profil.Efternamn,
-                    Födelseår = profil.Födelseår,
-                    Active = profil.Active,
-                    Description = profil.Description,
-                    Interests = dbModel.Interests.Where(x => x.ProfileId == id).ToList()
-                };
-                return View(result);
+                    var profil = dbModel.Profiles.SingleOrDefault(x => x.ProfileId == id);
+                    var result = new EditViewModel
+                    {
+                        Förnamn = profil.Förnamn,
+                        Efternamn = profil.Efternamn,
+                        Födelseår = profil.Födelseår,
+                        Active = profil.Active,
+                        Description = profil.Description,
+                        Interests = dbModel.Interests.Where(x => x.ProfileId == id).ToList()
+                    };
+                    return View(result);
+                }
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("GenericError", "ErrorHandler");
+
             }
         }
 
@@ -172,18 +217,27 @@ namespace DejtingApp.Controllers
         [HttpPost]
         public ActionResult EditStatus(int id, FormCollection dropdownValues)
         {
-            int loggedIn = getUser();
-            var StatusName = dropdownValues["Category"].ToString();
-            AppDbContext dbModel = new AppDbContext();
-            if(StatusName != "")
-            {   
-                int cID = Int32.Parse(dropdownValues["Category"]);
-                var result = dbModel.Friends.SingleOrDefault(o => o.RecieverId == loggedIn && o.SenderId == id);
-                result.CategoryId = cID;
-                dbModel.SaveChanges();
-            }
+            try
+            {
+                int loggedIn = getUser();
+                var StatusName = dropdownValues["Category"].ToString();
+                AppDbContext dbModel = new AppDbContext();
+                if (StatusName != "")
+                {
+                    int cID = Int32.Parse(dropdownValues["Category"]);
+                    var result = dbModel.Friends.SingleOrDefault(o => o.RecieverId == loggedIn && o.SenderId == id);
+                    result.CategoryId = cID;
+                    dbModel.SaveChanges();
+                }
 
-            return RedirectToAction("ViewFriendList", new { profileId = loggedIn });
+                return RedirectToAction("ViewFriendList", new { profileId = loggedIn });
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("GenericError", "ErrorHandler");
+
+            }
         }
         public ActionResult Delete(int id)
         {
@@ -216,32 +270,41 @@ namespace DejtingApp.Controllers
         [HttpPost]
         public ActionResult UploadImage(Image imageModel)
         {
-            int pid = getUser();
-
-            string filename = Path.GetFileNameWithoutExtension(imageModel.ImageFile.FileName);
-            string extension = Path.GetExtension(imageModel.ImageFile.FileName);
-            filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
-
-            imageModel.ImgPath = "~/Content/Images/" + filename;
-            imageModel.ProfileId = pid;
-            imageModel.ImageName = filename;
-           
-            filename = Path.Combine(Server.MapPath("~/Content/Images/"), filename);
-            imageModel.ImageFile.SaveAs(filename);
-
-            using (AppDbContext db = new AppDbContext())
+            try
             {
-                var hasPicture = db.Images.FirstOrDefault(i => i.ProfileId == pid);
-                if(hasPicture != null )
-                {
-                    db.Images.Remove(hasPicture);
-                }
+                int pid = getUser();
 
-                db.Images.Add(imageModel);
-                db.SaveChanges();
+                string filename = Path.GetFileNameWithoutExtension(imageModel.ImageFile.FileName);
+                string extension = Path.GetExtension(imageModel.ImageFile.FileName);
+                filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
+
+                imageModel.ImgPath = "~/Content/Images/" + filename;
+                imageModel.ProfileId = pid;
+                imageModel.ImageName = filename;
+
+                filename = Path.Combine(Server.MapPath("~/Content/Images/"), filename);
+                imageModel.ImageFile.SaveAs(filename);
+
+                using (AppDbContext db = new AppDbContext())
+                {
+                    var hasPicture = db.Images.FirstOrDefault(i => i.ProfileId == pid);
+                    if (hasPicture != null)
+                    {
+                        db.Images.Remove(hasPicture);
+                    }
+
+                    db.Images.Add(imageModel);
+                    db.SaveChanges();
+                }
+                ModelState.Clear();
+                return View();
             }
-            ModelState.Clear();
-            return View();
+            catch (Exception)
+            {
+
+                return RedirectToAction("GenericError", "ErrorHandler");
+
+            }
         }
 
         public JsonSerializer CreateSerializer()

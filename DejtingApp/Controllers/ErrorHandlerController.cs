@@ -9,7 +9,7 @@ namespace DejtingApp.Controllers
     public class ErrorHandlerController : Controller
     {
         // GET: ErrorHandler
-        public ActionResult Index()
+        public ActionResult GenericError()
         {
             return View();
         }

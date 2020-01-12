@@ -340,7 +340,7 @@
     <Content Include="Views\Profile\EditInterests.cshtml" />
     <Content Include="Views\Profile\UploadImage.cshtml" />
     <Content Include="Views\Interest\FindMatch.cshtml" />
-    <Content Include="Views\ErrorHandler\Index.cshtml" />
+    <Content Include="Views\ErrorHandler\GenericError.cshtml" />
     <Content Include="Views\ErrorHandler\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>

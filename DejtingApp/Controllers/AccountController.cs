@@ -85,11 +85,21 @@ namespace DejtingApp.Controllers
             int pid = getUser();
             using (var ctx = new AppDbContext())
             {
-                var FriendReq = ctx.FriendRequests.FirstOrDefault(o => o.SenderId == profileId && o.RecieverId == pid);
-                if(FriendReq != null)
+                try
                 {
-                    ctx.FriendRequests.Remove(FriendReq);
-                    ctx.SaveChanges();
+                    var FriendReq = ctx.FriendRequests.FirstOrDefault(o => o.SenderId == profileId && o.RecieverId == pid);
+                    if (FriendReq != null)
+                    {
+
+                        ctx.FriendRequests.Remove(FriendReq);
+                        ctx.SaveChanges();
+                    }
+                }
+                catch (Exception e)
+                {
+
+                    return RedirectToAction("GenericError", "ErrorHandler");
+
                 }
             }
             return RedirectToAction("ViewFriendRequest", new { profileId = pid });
@@ -100,10 +110,12 @@ namespace DejtingApp.Controllers
             int pid = getUser();
             using (var ctx = new AppDbContext())
             {
-                var FriendReq = ctx.FriendRequests.FirstOrDefault(o => o.SenderId == profileId && o.RecieverId == pid);
-                if (FriendReq != null)
+                try
                 {
-                    
+                    var FriendReq = ctx.FriendRequests.FirstOrDefault(o => o.SenderId == profileId && o.RecieverId == pid);
+                    if (FriendReq != null)
+                    {
+
                         var friend1 = new Friend
                         {
                             SenderId = FriendReq.SenderId,
@@ -119,17 +131,16 @@ namespace DejtingApp.Controllers
                         ctx.Friends.Add(friend1);
                         ctx.Friends.Add(friend2);
                         ctx.FriendRequests.Remove(FriendReq);
-                    try
-                    {
-                        ctx.SaveChanges();
                         
-                    }
+                            ctx.SaveChanges();                                            
 
-                    catch(Exception e)
-                    {
-                        return View();
-                        //throw new Exception(e.Message);
                     }
+                }
+
+                catch (Exception e)
+                {
+
+                    return RedirectToAction("GenericError", "ErrorHandler");
 
                 }
             }

@@ -4,12 +4,12 @@
     {
       "$id": "1",
       "$type": "System.Data.Entity.DynamicProxies.Profile_35F034F09061FFF1C88721D5335F845C66A5D220E86F5BC630512837C25C32A6, EntityFrameworkDynamicProxies-DejtingApp",
-      "ProfileId": 2,
-      "Förnamn": "Jocke",
-      "Efternamn": "Joke",
+      "ProfileId": 4,
+      "Förnamn": "John",
+      "Efternamn": "Doe",
       "Födelseår": "1990-01-01T00:00:00",
       "Active": true,
-      "Description": "Heyo, lets go!"
+      "Description": "Im locked and loaded."
     }
   ]
 }

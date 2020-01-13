@@ -54,10 +54,20 @@ namespace DejtingApp.Controllers
                 var RecieverId = profileIdd;
                 var senderId = getUser();
 
-                FriendRequest friendRequest = new FriendRequest { SenderId = senderId, RecieverId = RecieverId };
+                //If friendReq already exist
 
-                ctx.FriendRequests.Add(friendRequest);
-                ctx.SaveChanges();
+                var validateFriendReq1 = ctx.FriendRequests.FirstOrDefault(o => o.RecieverId == profileIdd && o.SenderId == senderId); ;
+                var validateFriendReq2 = ctx.FriendRequests.FirstOrDefault(o => o.RecieverId == profileIdd && o.SenderId == senderId);
+                var friend1 = ctx.Friends.FirstOrDefault(f => f.RecieverId == profileIdd && f.SenderId == senderId);
+                var friend2 = ctx.Friends.FirstOrDefault(f => f.RecieverId == profileIdd && f.SenderId == senderId);
+
+                if (validateFriendReq1 == null && validateFriendReq2 == null && friend1 == null && friend2 == null)
+                {
+                    FriendRequest friendRequest = new FriendRequest { SenderId = senderId, RecieverId = RecieverId };
+
+                    ctx.FriendRequests.Add(friendRequest);
+                    ctx.SaveChanges();
+                }
 
                 if (button.Equals("profil"))
                 {

@@ -4,28 +4,43 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>Meetify</h1>
-    <p class="lead">The place to meet new people!</p>
-    <p>Here you can find friends, lovers or relations of your own preference without even having to try - we will do it for you! Sign up today to take part in this once in a lifetime opportunity. Let's embark on this beautiful journey together! </p>
-    <p><a href="https://localhost:44375/Account/Register" class="btn btn-primary btn-lg">Sign up &raquo;</a></p>
-</div>
+    <div class="jumbotron">
+        <h1>Meetify</h1>
+        @if (Request.IsAuthenticated)
+        {
+            <p class="lead">Welcome!</p>
+            <p>Get started by filling out your interests at your profile page. That's how we make sure you get matched with the right people - for you!
+            Have you already entered your interests? Be sure to check out your profile page anyway, perhaps someone has written something on your wall? ;-) 
+            </p>
+            <p><a href="https://localhost:44375/Profile/Index" class="btn btn-primary btn-lg">Go to your profile &raquo;</a></p>
+        }
+
+        else
+        {
+            <p class="lead">The place to meet new people!</p>
+            <p>Here you can find friends, lovers or relations of your own preference without even having to try - we will do it for you! Sign up today to take part in this once in a lifetime opportunity. Let's embark on this beautiful journey together! </p>
+            <p><a href="https://localhost:44375/Account/Register" class="btn btn-primary btn-lg">Sign up &raquo;</a></p>
+        }
+
+
+    </div>
 
 <div class="row">
     @foreach (var item in Model)
     {
         <div class="cooldiv">
             <h2 style="align">
-                @item.Förnamn,
-                @{
-                    var today = DateTime.Today;
-                    var date = today.Year - item.Födelseår.Year;
-                    if (item.Födelseår.Date > today.AddYears(-date)) { date--; }
+                <center>
+                    @item.Förnamn,
+                                @{
+                                    var today = DateTime.Today;
+                                    var date = today.Year - item.Födelseår.Year;
+                                    if (item.Födelseår.Date > today.AddYears(-date)) { date--; }
 
 
-                    @Html.DisplayFor(modelItem => date);
-                }
-            </h2>
+                                    @Html.DisplayFor(modelItem => date);
+                                }
+                            </center></h2>
             @if (item.ImagePath != null)
             {
                 <img src="@Url.Content(item.ImagePath)" style="width: 200px; height: 200px" />

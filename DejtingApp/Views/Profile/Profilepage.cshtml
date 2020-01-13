@@ -10,88 +10,109 @@
 <div class="container" style="margin-top: 30px">
     <div class="row">
         <div class="col-md-4">
-            @if (Model.Image != null)
-            {
-                <img src="@Url.Content(Model.Image.ImgPath)" style="width: 200px; height: 200px" />
-            }
-            else
-            {
-                <img src="~/Content/Images/default.png" style="width: 200px; height: 200px" />
-            }
-
-            @foreach (var item in Model.Profiles)
-            {
-                <div style="font-size: 20px; font-weight: bold">
-                    @Html.DisplayFor(modelItem => item.Förnamn)
-                    @Html.DisplayFor(modelItem => item.Efternamn),
-
-                    @{
-                        var today = DateTime.Today;
-                        var date = today.Year - item.Födelseår.Year;
-                        if (item.Födelseår.Date > today.AddYears(-date)) { date--; }
+            <div class="text-center">
+                @if (Model.Image != null)
+                {
+                    <img src="@Url.Content(Model.Image.ImgPath)" style="width: 200px; height: 200px" />
+                }
+                else
+                {
+                    <img src="~/Content/Images/default.png" style="width: 200px; height: 200px" />
+                }
+            </div>
+            <div class="card" style="margin-top: 10px">
 
 
-                        @Html.DisplayFor(modelItem => date);
+                <div class="card-body" style="padding-bottom: 10px">
+
+                    @foreach (var item in Model.Profiles)
+                    {
+                        <div class="card-header">
+                            <h5 style="font-size: 20px; font-weight: bold">
+                                @Html.DisplayFor(modelItem => item.Förnamn)
+                                @Html.DisplayFor(modelItem => item.Efternamn),
+
+                                @{
+                                    var today = DateTime.Today;
+                                    var date = today.Year - item.Födelseår.Year;
+                                    if (item.Födelseår.Date > today.AddYears(-date)) { date--; }
+
+
+                                    @Html.DisplayFor(modelItem => date);
+                                }
+                            </h5>
+
+                        </div>
+                    }
+
+                    @foreach (var item in Model.Profiles)
+                    {
+                        <h4 class="card-title" style="padding-left: 10px">About me</h4>
+                        <p class="card-text" style="padding-left: 10px">@Html.DisplayFor(modelItem => item.Description)</p>
+                    }
+
+                </div>
+
+            </div>
+
+            <div class="card" style="margin-top: 10px">
+                <div class="card-body">
+                    <div class="card-header"><h4>Intressen :</h4></div>
+                    <ul class="list-group list-group-flush">
+                        @foreach (var item in Model.Interests)
+                        {
+                            <p class="list-group-item">@item.InterestName</p>
+                        }
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="card text-center" style="margin-top: 10px; padding: 5px">
+                <div class="card-body" style="margin-bottom: 5px">
+                    @foreach (var item in Model.Profiles)
+                    {
+                        <input type="submit" class="btn-success" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { profileIdd = @item.ProfileId, button = "profil" })'" />
                     }
                 </div>
-            }
+            </div>
         </div>
         <div class="col-md-5" style="border-color: black; max-height: 320px;">
-            @*List of messages*@
-                <div class="list-group" id="results" style="max-height: 300px; overflow-y: auto">
-                </div>
-        </div>
-        <div class="col-md-3">
-            @foreach (var item in Model.Profiles)
-            {
-                <input type="submit" class="btn-success" value="Send friend request" onclick="location.href='@Url.Action("AddFriend", "Home", new { profileIdd = @item.ProfileId, button = "profil" })'" />
-            }
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            @*@foreach (var item in Model.Profiles)
-            {
-                <h4 class="list-group-item-heading">About me</h4>
-                <p class="list-group-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
-            }*@
-        </div>
-        <div class="col-md-5">
+            <div class="card" id="results" style="max-height: 500px; min-height: 500px; overflow-y: auto">
+
+            </div>
             <textarea class="form-control form-group-lg" placeholder="Make your move" id="Text"></textarea>
             @*Message input field*@
+            <br />
+            <input type="button" value="Send message!" class="btn-large btn-primary" id="sendMessage" /> @* AJAX call ska peka på '#sendMessage'*@
         </div>
         <div class="col-md-3">
-
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            @foreach (var item in Model.Profiles)
-            {
-                <h4 class="list-group-item-heading">About me</h4>
-                <p class="list-group-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
-            }
-        </div>
-        <div class="col-md-5">
-            @*En submit knapp för att skriva på wallen *@
-            <br />
-            <input type="button" value="Send message!" class="btn-large btn-primary" id="sendMessage" />
-            @*<input type="button" value="Do we match?" class="btn-large btn-primary" id="doWeMatch" />*@
-            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal" id="doWeMatch">
+            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal" id="doWeMatch" style="margin-top: 20px">
                 Do we match?
             </button>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-5">
+        </div>
         <div class="col-md-3">
 
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
-            <h4>Intressen :</h4>
-            @foreach (var item in Model.Interests)
-            {
-                <p>@item.InterestName</p>
-            }
+        </div>
+        <div class="col-md-5">
+        </div>
+        <div class="col-md-3">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
         </div>
         <div class="col-md-5">
             @*Här visas knappar på den egna profilen.*@
@@ -134,13 +155,16 @@
                 for(var i=0;i<data.length;i++)
                 {
                     if (data[i].Reciever == @item.ProfileId) {
-                        var result = "<p>" + data[i].MessageText + "</p>";
-                        var namn = "<h4>" + data[i].Förnamn + " " + data[i].Efternamn + "</h4>";
-                        $("#results").append(namn + result);
+                        var cardbody = '<div class="card">';
+                        var closediv = '</div>';
+                        var divbody1 = '<div class="card-body" style="padding: 10px">';
+                        var result = '<p>' + data[i].MessageText + " </p>";
+                        var namn = '<h5 style="font-weight: bold">' + data[i].Förnamn + " " + data[i].Efternamn + " wrote: </h5>";
+                        $("#results").append(cardbody + divbody1 + namn  + result + closediv + closediv);
                     }
                 }
             });
-          }
+            }
 
         $("#doWeMatch").click(function () {
             $.ajax({

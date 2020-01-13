@@ -26,32 +26,35 @@
     </div>
 
 <div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="cooldiv">
-            <h2 style="align">
-                <center>
-                    @item.Förnamn,
-                                @{
-                                    var today = DateTime.Today;
-                                    var date = today.Year - item.Födelseår.Year;
-                                    if (item.Födelseår.Date > today.AddYears(-date)) { date--; }
+    <div class="d-flex flex-row">
+        @foreach (var item in Model)
+        {
+            <div class="cooldiv">
+                <h2 style="align">
+                    <center>
+                        @item.Förnamn,
+                        @{
+                            var today = DateTime.Today;
+                            var date = today.Year - item.Födelseår.Year;
+                            if (item.Födelseår.Date > today.AddYears(-date)) { date--; }
 
 
-                                    @Html.DisplayFor(modelItem => date);
-                                }
-                            </center></h2>
-            @if (item.ImagePath != null)
-            {
-                <img src="@Url.Content(item.ImagePath)" style="width: 200px; height: 200px" />
-            }
-            else
-            {
-                <img src="~/Content/Images/default.png" style="width: 200px; height: 200px" />
-            }
-            <p>
-                <a class="btn btn-default" href="https://localhost:44375/Profile/Profilepage?ProfileId=@item.ProfileId">Meet @item.Förnamn &raquo;</a>
-            </p>
-        </div>
-    }
+                            @Html.DisplayFor(modelItem => date);
+                        }
+                    </center>
+                </h2>
+                @if (item.ImagePath != null)
+                {
+                    <img src="@Url.Content(item.ImagePath)" style="width: 200px; height: 200px" />
+                }
+                else
+                {
+                    <img src="~/Content/Images/default.png" style="width: 200px; height: 200px" />
+                }
+                <p>
+                    <a class="btn btn-default" href="https://localhost:44375/Profile/Profilepage?ProfileId=@item.ProfileId">Meet @item.Förnamn &raquo;</a>
+                </p>
+            </div>
+        }
+    </div>
 </div>
